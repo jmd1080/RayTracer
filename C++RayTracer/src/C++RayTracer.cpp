@@ -10,10 +10,13 @@
 #include "cmath"
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
+#include "World/World.h"
 
 using namespace std;
 
 int main() {
 	cout << "Ray Tracer" << endl;
+	World w = World();
+	w.render_scene();
 	return 0;
 }

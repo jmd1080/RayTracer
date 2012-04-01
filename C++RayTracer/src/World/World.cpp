@@ -16,6 +16,8 @@
 #include "../Utilities/ShadeRec.h"
 #include "../Utilities/Maths.h"
 
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 
 // -------------------------------------------------------------------- default constructor
 
@@ -53,6 +55,9 @@ World::render_scene(void) const {
 
 	ray.d = Vector3D(0, 0, -1);
 	
+	IplImage *display = cvCreateImage(cvSize(hres,vres),1,1);
+	//cvShowImage("Result",display);
+
 	for (int r = 0; r < vres; r++)			// up
 		for (int c = 0; c <= hres; c++) {	// across 					
 			/*ray.o = Point3D(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
@@ -62,7 +67,7 @@ World::render_scene(void) const {
 }  
 
 // ----------------------------------------------------------------------------- hit_objects
-
+/*
 ShadeRec									
 World::hit_objects(const Ray& ray) {
 
@@ -92,7 +97,7 @@ World::hit_objects(const Ray& ray) {
 	return(sr);   
 }
 
-
+*/
 
 //------------------------------------------------------------------ delete_objects
 

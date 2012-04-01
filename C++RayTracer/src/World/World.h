@@ -10,12 +10,16 @@
 
 #include <vector>
 
+using namespace std;
+
+
 class World {
 	public:
 
 		ViewPlane					vp;
 		RGBColor					background_color;
 		vector<GeometricObject*>	objects;
+		int ambient;//TODO
 
 	public:
 
@@ -54,27 +58,12 @@ World::add_object(GeometricObject* object_ptr) {
 }
 
 
-// ------------------------------------------------------------------ add_light
-
-inline void
-World::add_light(Light* light_ptr) {
-	lights.push_back(light_ptr);
-}
-
 
 // ------------------------------------------------------------------ set_ambient_light
 
 inline void
-World::set_ambient_light(Light* light_ptr) {
-	ambient_ptr = light_ptr;
-}
-
-
-// ------------------------------------------------------------------ set_camera
-
-inline void
-World::set_camera(Camera* c_ptr) {
-	camera_ptr = c_ptr;
+World::set_ambient_light(int light) {
+	ambient = light;
 }
 
 #endif
