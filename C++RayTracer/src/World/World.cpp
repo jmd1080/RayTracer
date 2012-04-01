@@ -21,14 +21,14 @@
 
 // -------------------------------------------------------------------- default constructor
 
-// tracer_ptr is set to NULL because the build functions will always construct the appropriate tracer
-// ambient_ptr is set to a default ambient light because this will do for most scenes
-// camera_ptr is set to NULL because the build functions will always have to construct a camera
-// and set its parameters
+// If no file is given create a default world with two spheres
 
 World::World(void)
 	:  	background_color(black)
-{}
+{
+	add_object(Sphere(Point3D(20,20,20),5));
+	add_object(Sphere(Point3D(20,20,40),10));
+}
 
 
 
@@ -47,7 +47,7 @@ void
 World::render_scene(void) const {
 
 	RGBColor	pixel_color;	 	
-	Ray			ray;					
+	Ray			ray;
 	int 		hres 	= vp.hres;
 	int 		vres 	= vp.vres;
 	float		s		= vp.s;
@@ -55,11 +55,19 @@ World::render_scene(void) const {
 
 	ray.d = Vector3D(0, 0, -1);
 	
+
+	// Create image
 	IplImage *display = cvCreateImage(cvSize(hres,vres),1,1);
+	printf("Hello\n");
 	//cvShowImage("Result",display);
 
 	for (int r = 0; r < vres; r++)			// up
-		for (int c = 0; c <= hres; c++) {	// across 					
+		for (int c = 0; c <= hres; c++) {	// across
+
+			// Create ray for this pixel
+
+			// Detect what the object hits
+
 			/*ray.o = Point3D(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
 			pixel_color = tracer_ptr->trace_ray(ray);
 			display_pixel(r, c, pixel_color);*/
