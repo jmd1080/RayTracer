@@ -26,8 +26,10 @@
 World::World(void)
 	:  	background_color(black)
 {
-	add_object(Sphere(Point3D(20,20,20),5));
-	add_object(Sphere(Point3D(20,20,40),10));
+	printf("Making sample world\n");
+	Sphere *s1 = new Sphere(Point3D(20,20,20),5);
+	s1->set_material(1);
+	add_object(s1);
 }
 
 
@@ -38,6 +40,39 @@ World::~World(void) {
 	delete_objects();	
 }
 
+
+
+// ----------------------------------------------------------------------------- hit_objects
+
+ShadeRec
+World::hit_objects(const Ray& ray) {
+
+	ShadeRec	sr(*this);
+	double		t;
+	Normal normal;
+	Point3D local_hit_point;
+	float		tmin 			= kHugeValue;
+	int 		num_objects 	= objects.size();
+
+	for (int j = 0; j < num_objects; j++)
+		if (objects[j]->hit(ray, t, sr) && (t < tmin)) {
+			sr.hit_an_object	= true;
+			tmin 				= t;
+			//sr.material_ptr     = objects[j]->get_material(); // TODO fix issues with material
+			sr.hit_point 		= ray.o + t * ray.d;
+			normal 				= sr.normal;
+			local_hit_point	 	= sr.local_hit_point;
+			printf("hit!\n");
+		}
+
+	if(sr.hit_an_object) {
+		sr.t = tmin;
+		sr.normal = normal;
+		sr.local_hit_point = local_hit_point;
+	}
+
+	return(sr);
+}
 
 //------------------------------------------------------------------ render_scene
 
@@ -58,7 +93,6 @@ World::render_scene(void) const {
 
 	// Create image
 	IplImage *display = cvCreateImage(cvSize(hres,vres),1,1);
-	printf("Hello\n");
 	//cvShowImage("Result",display);
 
 	for (int r = 0; r < vres; r++)			// up
@@ -68,44 +102,15 @@ World::render_scene(void) const {
 
 			// Detect what the object hits
 
-			/*ray.o = Point3D(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
-			pixel_color = tracer_ptr->trace_ray(ray);
+			ray.o = Point3D(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
+			//ShadeRec sr = hit_objects(ray);
+
+			/*pixel_color = tracer_ptr->trace_ray(ray);
 			display_pixel(r, c, pixel_color);*/
 		}	
 }  
 
-// ----------------------------------------------------------------------------- hit_objects
-/*
-ShadeRec									
-World::hit_objects(const Ray& ray) {
 
-	ShadeRec	sr(*this); 
-	double		t;
-	Normal normal;
-	Point3D local_hit_point;
-	float		tmin 			= kHugeValue;
-	int 		num_objects 	= objects.size();
-	
-	for (int j = 0; j < num_objects; j++)
-		if (objects[j]->hit(ray, t, sr) && (t < tmin)) {
-			sr.hit_an_object	= true;
-			tmin 				= t;
-			sr.material_ptr     = objects[j]->get_material();
-			sr.hit_point 		= ray.o + t * ray.d;
-			normal 				= sr.normal;
-			local_hit_point	 	= sr.local_hit_point;
-		}
-  
-	if(sr.hit_an_object) {
-		sr.t = tmin;
-		sr.normal = normal;
-		sr.local_hit_point = local_hit_point;
-	}
-		
-	return(sr);   
-}
-
-*/
 
 //------------------------------------------------------------------ delete_objects
 
