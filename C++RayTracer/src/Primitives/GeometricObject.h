@@ -47,6 +47,10 @@ class GeometricObject {
 
 // ------------------------------------------------------------------------- get_material
 
+inline int
+GeometricObject::get_material(void) const {
+	return (material);
+}
 /*
 inline Material* 
 GeometricObject::get_material(void) const {

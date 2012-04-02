@@ -28,7 +28,12 @@ RayCast::trace_ray(const Ray& ray) const {
 	ShadeRec sr(world_ptr->hit_objects(ray));
 
 	if (sr.hit_an_object) {
-		return (sr.material);
+		if (sr.material == 1)
+			return (red);
+		else if (sr.material == 2)
+			return (white);
+		else
+			return (black);
 	}   
 	else
 		return (world_ptr->background_color);
