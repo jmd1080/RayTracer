@@ -6,6 +6,7 @@
 #include "../Primitives/Plane.h"
 #include "../Primitives/Sphere.h"
 #include "../Utilities/RGBColor.h"
+#include "../Tracers/Tracer.h"
 #include "ViewPlane.h"
 
 #include <vector>
@@ -19,6 +20,8 @@ class World {
 		ViewPlane					vp;
 		RGBColor					background_color;
 		vector<GeometricObject*>	objects;
+		Tracer*						tracer_ptr;
+
 		int ambient;//TODO
 
 	public:

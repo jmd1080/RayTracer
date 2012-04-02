@@ -16,6 +16,8 @@
 #include "../Utilities/ShadeRec.h"
 #include "../Utilities/Maths.h"
 
+#include "../Tracers/RayCast.h"
+
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
@@ -24,7 +26,9 @@
 // If no file is given create a default world with two spheres
 
 World::World(void)
-	:  	background_color(black)
+	:  	background_color(black),
+		tracer_ptr(new RayCast(this)),
+		ambient(10)
 {
 	printf("Making sample world\n");
 	Sphere *s1 = new Sphere(Point3D(20,20,20),5);
@@ -62,7 +66,6 @@ World::hit_objects(const Ray& ray) {
 			sr.hit_point 		= ray.o + t * ray.d;
 			normal 				= sr.normal;
 			local_hit_point	 	= sr.local_hit_point;
-			printf("hit!\n");
 		}
 
 	if(sr.hit_an_object) {
@@ -105,8 +108,8 @@ World::render_scene(void) const {
 			ray.o = Point3D(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
 			//ShadeRec sr = hit_objects(ray);
 
-			/*pixel_color = tracer_ptr->trace_ray(ray);
-			display_pixel(r, c, pixel_color);*/
+			pixel_color = tracer_ptr->trace_ray(ray);
+			//display_pixel(r, c, pixel_color);
 		}	
 }  
 
