@@ -28,12 +28,16 @@
 World::World(void)
 	:  	background_color(black),
 		tracer_ptr(new RayCast(this)),
-		ambient(10)
+		ambient(10),
+		vp()
 {
 	printf("Making sample world\n");
-	Sphere *s1 = new Sphere(Point3D(20,20,20),5);
+	Sphere *s1 = new Sphere(Point3D(0,0,10),50);
 	s1->set_material(1);
+	Sphere *s2 = new Sphere(Point3D(20,20,20),50);
+	s2->set_material(2);
 	add_object(s1);
+	add_object(s2);
 }
 
 
@@ -96,12 +100,15 @@ World::render_scene(void) const {
 	
 
 	// Create image
-	IplImage *display = cvCreateImage(cvSize(hres,vres),1,1);
+	IplImage *display = cvCreateImage(cvSize(vres,hres), 8, 3);
+
+	//cvCircle(display, cvPoint(hres/2,vres/2), hres/2, cvScalar(255,255,255),-1);
+
 	//cvShowImage("Result",display);
 
 	for (int r = 0; r < vres; r++)			// up
 	{
-		for (int c = 0; c <= hres; c++) {	// across
+		for (int c = 0; c < hres; c++) {	// across
 
 			// Create ray for this pixel
 
@@ -111,15 +118,20 @@ World::render_scene(void) const {
 			//ShadeRec sr = hit_objects(ray);
 
 			pixel_color = tracer_ptr->trace_ray(ray);
-			if(pixel_color == red)
-				printf("1");
-			else
-				printf("0");
+
+			CvScalar s = cvGet2D(display,c,r);
+			s.val[0] = pixel_color.b*255;
+			s.val[1] = pixel_color.g*255;
+			s.val[2] = pixel_color.r*255;
+
+			cvSet2D(display,c,r,s);
 
 			//display_pixel(r, c, pixel_color);
 		}	
-		printf("\n");
 	}
+
+	cvShowImage("Image",display);
+	cvWaitKey(0);
 }  
 
 
