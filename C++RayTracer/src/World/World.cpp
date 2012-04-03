@@ -15,8 +15,11 @@
 #include "../Utilities/Normal.h"
 #include "../Utilities/ShadeRec.h"
 #include "../Utilities/Maths.h"
+#include "../Utilities/RGBColor.h"
 
 #include "../Tracers/RayCast.h"
+
+#include "../Material/Material.h"
 
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
@@ -33,13 +36,20 @@ World::World(void)
 {
 	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
 
+	Material *m1 = new Material();
+	m1->set_color(red);
+	Material *m2 = new Material();
+	m2->set_color(white);
 	printf("Making sample world\n");
 	Sphere *s1 = new Sphere(Point3D(-50,-50,-100),50);
 	s1->set_material(1);
+	s1->set_material_ptr(m1);
 	Sphere *s2 = new Sphere(Point3D(50,50,-200),50);
 	s2->set_material(2);
+	s2->set_material_ptr(m1);
 	Sphere *s3 = new Sphere(Point3D(0,0,-300),50);
 	s3->set_material(2);
+	s3->set_material_ptr(m2);
 	add_object(s1);
 	add_object(s2);
 	add_object(s3);
@@ -73,7 +83,7 @@ World::hit_objects(const Ray& ray) {
 			sr.hit_an_object	= true;
 			tmin 				= t;
 			sr.material = objects[j]->get_material();
-			//sr.material_ptr     = objects[j]->get_material(); // TODO fix issues with material
+			sr.material_ptr     = objects[j]->get_material_ptr(); // TODO fix issues with material
 			sr.hit_point 		= ray.o + t * ray.d;
 			normal 				= sr.normal;
 			local_hit_point	 	= sr.local_hit_point;

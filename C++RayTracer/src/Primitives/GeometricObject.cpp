@@ -53,3 +53,8 @@ GeometricObject::set_material(int mMtrl) {
 	material = mMtrl;
 }
 
+void
+GeometricObject::set_material_ptr(Material* mMtrl) {
+	material_ptr = mMtrl;
+}
+

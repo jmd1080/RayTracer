@@ -6,8 +6,14 @@ color(RGBColor(0))
 {}
 
 Material::Material(const Material& material):
-				color(material.color)
+color(material.color)
 {}
+
+void
+Material::set_color(RGBColor inColor)
+{
+	color = inColor;
+}
 
 // Returns the colour of the object based on the shade record
 RGBColor

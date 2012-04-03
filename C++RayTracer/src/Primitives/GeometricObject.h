@@ -30,13 +30,19 @@ class GeometricObject {
 		int
 		get_material(void) const;
 
-		virtual void 							// needs to virtual so that it can be overriden in Compound
+		Material*
+		get_material_ptr(void) const;
+
+		void
 		set_material(int);
+
+		void
+		set_material_ptr(Material*);
 
 	
 	protected:
 	
-		//mutable Material*   material_ptr;   	// mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
+		mutable Material*   material_ptr;   	// mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
 	
 		int material;
 
@@ -51,10 +57,11 @@ inline int
 GeometricObject::get_material(void) const {
 	return (material);
 }
-/*
+
+
 inline Material* 
-GeometricObject::get_material(void) const {
+GeometricObject::get_material_ptr(void) const {
 	return (material_ptr);
-}*/
+}
 
 #endif
