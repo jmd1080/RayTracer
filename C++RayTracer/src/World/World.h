@@ -48,7 +48,7 @@ class World {
 		hit_objects(const Ray& ray);
 
 		void
-		draw_pixel(RGBColor pixel_color, int c, int r);
+		draw_pixel(RGBColor pixel_color, int c, int r) const;
 
 
 

@@ -39,10 +39,7 @@ Pinhole::render_scene(const World& w)
 				rayDir.normalize();
 
 				//Get the intersection for the ray
-				pixel_color = tracer_ptr->trace_ray(ray);
-
-
-
+				//pixel_color = tracer_ptr->trace_ray(ray);
 
 			}
 }

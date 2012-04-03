@@ -31,6 +31,8 @@ World::World(void)
 		ambient(10),
 		vp()
 {
+	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
+
 	printf("Making sample world\n");
 	Sphere *s1 = new Sphere(Point3D(-50,-50,0),50);
 	s1->set_material(2);
@@ -104,7 +106,7 @@ World::render_scene(void) const {
 	
 
 	// Create image
-	IplImage *display = cvCreateImage(cvSize(vres,hres), 8, 3);
+	//IplImage *display = cvCreateImage(cvSize(vres,hres), 8, 3);
 
 	//cvCircle(display, cvPoint(hres/2,vres/2), hres/2, cvScalar(255,255,255),-1);
 
@@ -120,27 +122,35 @@ World::render_scene(void) const {
 			//ShadeRec sr = hit_objects(ray);
 
 			pixel_color = tracer_ptr->trace_ray(ray);
+			/*CvScalar s = cvGet2D(img,c,r);
+						s.val[0] = pixel_color.b*255;
+						s.val[1] = pixel_color.g*255;
+						s.val[2] = pixel_color.r*255;
 
-			CvScalar s = cvGet2D(display,c,r);
-			s.val[0] = pixel_color.b*255;
-			s.val[1] = pixel_color.g*255;
-			s.val[2] = pixel_color.r*255;
-
-			cvSet2D(display,c,r,s);
-
-			//display_pixel(r, c, pixel_color);
+						cvSet2D(img,c,r,s);*/
+			draw_pixel(pixel_color, c, r);
 		}	
 	}
 
-	cvShowImage("Image",display);
+	cvShowImage("Image",img);
 	cvWaitKey(0);
 }  
 
 //------------------------------------------------------------------ image related functions
 
 void
-World::draw_pixel(RGBColor pixel_color, int c, int r)
+World::draw_pixel(RGBColor pixel_color, int c, int r) const
 {
+	if (img == NULL)
+		return;
+	if (c >= img->width || r >= img->height)
+		return;
+	CvScalar s = cvGet2D(img,c,r);
+	s.val[0] = pixel_color.b*255;
+	s.val[1] = pixel_color.g*255;
+	s.val[2] = pixel_color.r*255;
+
+	cvSet2D(img,c,r,s);
 
 }
 
