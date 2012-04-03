@@ -59,6 +59,7 @@ Pinhole::set_camera_roll(float angle) {
 inline void
 Pinhole::set_camera_dir(Vector3D dir) {
 	viewDir = dir;
+	viewDir.normalize();
 }
 
 #endif

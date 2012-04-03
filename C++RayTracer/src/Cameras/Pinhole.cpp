@@ -21,10 +21,19 @@ Pinhole::render_scene(const World& w)
 		ray.o = camPos;
 		ViewPlane vp(w.vp);
 
-		for (int r = 0; r < vp.vres; r++)
-			for (int c = 0; c < vp.hres; c++) {
+		Vector3D up = Vector3D(0,1,0);
+		Vector3D right = Vector3D(1,0,0);
+
+		for (int r = 0; r < vp.vres; r++) // row
+			for (int c = 0; c < vp.hres; c++) { // column
 				//Create ray for pixel
 				Vector3D rayDir = viewDir * d;
+
+				//Get position on view plane
+				rayDir+= (r - vp.vres/2)*up;
+				rayDir+= (r - vp.vres/2)*right;
+
+				rayDir.normalize();
 
 				//Get the intersection for the ray
 
