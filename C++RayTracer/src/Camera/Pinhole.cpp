@@ -10,9 +10,10 @@
 // ----------------------------------------------------------------------------- default constructor
 
 Pinhole::Pinhole(void)
-	:	d(500)
-	 	//camPos(Point3D(0))
-	 	//viewdir(Vector3D(0,0,1))
+	:	d(500),
+	 	camPos(Point3D(0)),
+	 	viewDir(Vector3D(0,0,-1)),
+		rollAngle(0)
 {}
 
 
@@ -45,4 +46,6 @@ Pinhole::render_scene(const World& w)
 
 				w.draw_pixel(pixel_color,c,r);
 			}
+
+		w.display_image();
 }

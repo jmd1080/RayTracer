@@ -34,14 +34,14 @@ World::World(void)
 	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
 
 	printf("Making sample world\n");
-	Sphere *s1 = new Sphere(Point3D(-50,-50,0),50);
-	s1->set_material(2);
+	/*Sphere *s1 = new Sphere(Point3D(-50,-50,0),50);
+	s1->set_material(1);
 	Sphere *s2 = new Sphere(Point3D(50,50,-40),50);
-	s2->set_material(2);
-	Sphere *s3 = new Sphere(Point3D(0,0,-20),50);
-	s3->set_material(1);
-	add_object(s1);
-	add_object(s2);
+	s2->set_material(2);*/
+	Sphere *s3 = new Sphere(Point3D(0,0,100),50);
+	s3->set_material(2);
+	/*add_object(s1);
+	add_object(s2);*/
 	add_object(s3);
 }
 
@@ -132,8 +132,7 @@ World::render_scene(void) const {
 		}	
 	}
 
-	cvShowImage("Image",img);
-	cvWaitKey(0);
+	display_image();
 }  
 
 //------------------------------------------------------------------ image related functions
@@ -153,6 +152,14 @@ World::draw_pixel(RGBColor pixel_color, int c, int r) const
 	cvSet2D(img,c,r,s);
 
 }
+
+void
+World::display_image(void) const
+{
+	cvShowImage("Image",img);
+	cvWaitKey(0);
+}
+
 
 
 //------------------------------------------------------------------ delete_objects

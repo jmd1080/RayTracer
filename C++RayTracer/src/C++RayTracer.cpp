@@ -19,5 +19,7 @@ int main() {
 	cout << "Ray Tracer" << endl;
 	World w = World();
 	w.render_scene();
+	Pinhole p = Pinhole();
+	p.render_scene(w);
 	return 0;
 }

@@ -50,7 +50,8 @@ class World {
 		void
 		draw_pixel(RGBColor pixel_color, int c, int r) const;
 
-
+		void
+		display_image(void) const;
 
 	private:
 
