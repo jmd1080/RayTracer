@@ -8,6 +8,7 @@
 #include "../Utilities/RGBColor.h"
 #include "../Tracers/Tracer.h"
 #include "ViewPlane.h"
+#include <opencv/cv.h>
 
 #include <vector>
 
@@ -21,6 +22,7 @@ class World {
 		RGBColor					background_color;
 		vector<GeometricObject*>	objects;
 		Tracer*						tracer_ptr;
+		IplImage*					img;
 
 		int ambient;//TODO
 
@@ -44,6 +46,10 @@ class World {
 
 		ShadeRec
 		hit_objects(const Ray& ray);
+
+		void
+		draw_pixel(RGBColor pixel_color, int c, int r);
+
 
 
 	private:

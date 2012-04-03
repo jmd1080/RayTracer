@@ -136,6 +136,13 @@ World::render_scene(void) const {
 	cvWaitKey(0);
 }  
 
+//------------------------------------------------------------------ image related functions
+
+void
+World::draw_pixel(RGBColor pixel_color, int c, int r)
+{
+
+}
 
 
 //------------------------------------------------------------------ delete_objects
