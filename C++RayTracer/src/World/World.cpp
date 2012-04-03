@@ -74,7 +74,7 @@ World::hit_objects(const Ray& ray) {
 		sr.normal = normal;
 		sr.local_hit_point = local_hit_point;
 	}
-	printf("%d",sr.material);
+	//printf("%d",sr.material);
 	return(sr);
 }
 
@@ -111,6 +111,10 @@ World::render_scene(void) const {
 			//ShadeRec sr = hit_objects(ray);
 
 			pixel_color = tracer_ptr->trace_ray(ray);
+			if(pixel_color == red)
+				printf("1");
+			else
+				printf("0");
 
 			//display_pixel(r, c, pixel_color);
 		}	
