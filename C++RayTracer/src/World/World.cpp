@@ -32,12 +32,15 @@ World::World(void)
 		vp()
 {
 	printf("Making sample world\n");
-	Sphere *s1 = new Sphere(Point3D(0,0,10),50);
-	s1->set_material(1);
-	Sphere *s2 = new Sphere(Point3D(20,20,20),50);
+	Sphere *s1 = new Sphere(Point3D(-50,-50,0),50);
+	s1->set_material(2);
+	Sphere *s2 = new Sphere(Point3D(50,50,-40),50);
 	s2->set_material(2);
+	Sphere *s3 = new Sphere(Point3D(0,0,-20),50);
+	s3->set_material(1);
 	add_object(s1);
 	add_object(s2);
+	add_object(s3);
 }
 
 
@@ -55,6 +58,7 @@ World::~World(void) {
 ShadeRec
 World::hit_objects(const Ray& ray) {
 
+	// ShadeRec
 	ShadeRec	sr(*this);
 	double		t;
 	Normal normal;
