@@ -3,6 +3,8 @@
 #include "../Utilities/Vector3D.h"
 #include "Pinhole.h"
 #include <math.h>
+#include "../Tracers/RayCast.h"
+
 
 
 // ----------------------------------------------------------------------------- default constructor
@@ -39,7 +41,8 @@ Pinhole::render_scene(const World& w)
 				rayDir.normalize();
 
 				//Get the intersection for the ray
-				//pixel_color = tracer_ptr->trace_ray(ray);
+				pixel_color = w.tracer_ptr->trace_ray(ray);
 
+				w.draw_pixel(pixel_color,c,r);
 			}
 }

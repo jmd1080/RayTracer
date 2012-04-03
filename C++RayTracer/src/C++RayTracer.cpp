@@ -11,6 +11,7 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 #include "World/World.h"
+#include "Camera/Pinhole.h"
 
 using namespace std;
 
