@@ -16,6 +16,9 @@ class Material {
 	    RGBColor
 		shade(ShadeRec& sr);
 
+	    void
+	    set_color(RGBColor color);
+
 	protected:
 
 		Material&
