@@ -1,7 +1,7 @@
 #ifndef __GEOMETRIC_OBJECT__
 #define __GEOMETRIC_OBJECT__
 
-class Material;
+//class Material;
 	
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Ray.h"
