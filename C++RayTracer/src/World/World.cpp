@@ -116,8 +116,6 @@ World::render_scene(void) const {
 
 			// Create ray for this pixel
 
-			// Detect what the object hits
-
 			ray.o = Point3D(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
 			//ShadeRec sr = hit_objects(ray);
 

@@ -21,6 +21,9 @@ Pinhole::render_scene(const World& w)
 		ray.o = camPos;
 		ViewPlane vp(w.vp);
 
+		RGBColor pixel_color;
+
+		// GET BY ROTATION TRANSFORM!
 		Vector3D up = Vector3D(0,1,0);
 		Vector3D right = Vector3D(1,0,0);
 
@@ -31,11 +34,15 @@ Pinhole::render_scene(const World& w)
 
 				//Get position on view plane
 				rayDir+= (r - vp.vres/2)*up;
-				rayDir+= (r - vp.vres/2)*right;
+				rayDir+= (c - vp.hres/2)*right;
 
 				rayDir.normalize();
 
 				//Get the intersection for the ray
+				pixel_color = tracer_ptr->trace_ray(ray);
+
+
+
 
 			}
 }
