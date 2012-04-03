@@ -19,6 +19,8 @@ Material::set_color(RGBColor inColor)
 RGBColor
 Material::shade(ShadeRec& sr)
 {
+	double ratio = sr.hit_point.z;
+	RGBColor out = color * 1600/(ratio*ratio);
 	return color;
 }
 
