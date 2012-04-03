@@ -34,14 +34,14 @@ World::World(void)
 	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
 
 	printf("Making sample world\n");
-	/*Sphere *s1 = new Sphere(Point3D(-50,-50,0),50);
+	Sphere *s1 = new Sphere(Point3D(-50,-50,-100),50);
 	s1->set_material(1);
-	Sphere *s2 = new Sphere(Point3D(50,50,-40),50);
-	s2->set_material(2);*/
-	Sphere *s3 = new Sphere(Point3D(0,0,100),50);
+	Sphere *s2 = new Sphere(Point3D(50,50,-200),50);
+	s2->set_material(2);
+	Sphere *s3 = new Sphere(Point3D(0,0,-300),50);
 	s3->set_material(2);
-	/*add_object(s1);
-	add_object(s2);*/
+	add_object(s1);
+	add_object(s2);
 	add_object(s3);
 }
 

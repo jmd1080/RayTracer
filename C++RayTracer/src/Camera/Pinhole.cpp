@@ -37,9 +37,12 @@ Pinhole::render_scene(const World& w)
 
 				//Get position on view plane
 				rayDir+= (r - vp.vres/2)*up;
+
 				rayDir+= (c - vp.hres/2)*right;
 
 				rayDir.normalize();
+
+				ray.d = rayDir;
 
 				//Get the intersection for the ray
 				pixel_color = w.tracer_ptr->trace_ray(ray);
