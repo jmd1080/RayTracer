@@ -25,7 +25,10 @@ Material::shade(ShadeRec& sr)
 	int num_lights = sr.w.lights.size();
 
 	for (int j = 0; j < num_lights; j++) {
+		// Lambertian
 		I += sr.w.lights[j]->get_intensity(sr);
+		// Specular
+
 	}
 	return color*I;
 }
