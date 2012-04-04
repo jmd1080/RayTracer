@@ -2,7 +2,8 @@
 // --------------------------------------------------------assignment operator
 
 Material::Material(void):
-color(RGBColor(0))
+color(RGBColor(0)),
+ka(1)
 {}
 
 Material::Material(const Material& material):
@@ -19,11 +20,13 @@ Material::set_color(RGBColor inColor)
 RGBColor
 Material::shade(ShadeRec& sr)
 {
-	return color;
+	float I = sr.w.ambient*ka;
+	return color*I;
 }
 
 Material&
 Material::operator= (const Material& rhs) {
 	color = rhs.color;
+	ka = rhs.ka;
 	return (*this);
 }

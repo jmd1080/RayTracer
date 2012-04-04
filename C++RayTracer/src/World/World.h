@@ -18,13 +18,13 @@ using namespace std;
 class World {
 	public:
 
-		ViewPlane					vp;
+		ViewPlane					vp;						//Used for orthogonal plotting
 		RGBColor					background_color;
 		vector<GeometricObject*>	objects;
 		Tracer*						tracer_ptr;
-		IplImage*					img;
+		IplImage*					img;					//The output image of the world
 
-		int ambient;//TODO
+		float 						ambient;				//Ambient light intensity
 
 	public:
 

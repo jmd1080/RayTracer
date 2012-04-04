@@ -31,7 +31,7 @@
 World::World(void)
 	:  	background_color(black),
 		tracer_ptr(new RayCast(this)),
-		ambient(10),
+		ambient(1),
 		vp()
 {
 	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);

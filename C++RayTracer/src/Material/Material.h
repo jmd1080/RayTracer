@@ -26,6 +26,7 @@ class Material {
 
 	private:
 		RGBColor color;
+		float ka; // ambient reflection coefficient
 };
 
 #endif
