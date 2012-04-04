@@ -5,7 +5,6 @@
 
 // primitives
 
-#include "../Primitives/Plane.h"
 #include "../Primitives/Sphere.h"
 
 // utilities

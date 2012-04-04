@@ -3,7 +3,6 @@
 
 // Based on World.h from Skeleton RayTracer TODO ATTRIBUTIONS
 
-#include "../Primitives/Plane.h"
 #include "../Primitives/Sphere.h"
 #include "../Utilities/RGBColor.h"
 #include "../Tracers/Tracer.h"
