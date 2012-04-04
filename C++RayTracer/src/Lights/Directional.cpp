@@ -9,24 +9,24 @@
 
 // Default constructor
 
-Directional::Directional(void)
-{
-
-}
+Directional::Directional(void):
+Light(),
+d(Vector3D(0))
+{}
 
 // Constructor
 
-Directional::Directional(Vector3D dir, float In)
-{
-
-}
+Directional::Directional(Vector3D dir, float In):
+			Light(In),
+			d(dir)
+{}
 
 // Copy constructor
 
-Directional::Directional(const Directional& directional)
-{
-
-}
+Directional::Directional(const Directional& directional):
+				Light(directional),
+				d(directional.d)
+{}
 
 Directional&
 Directional::operator= (const Directional& rhs)
@@ -41,5 +41,5 @@ Directional::operator= (const Directional& rhs)
 float
 Directional::get_intensity(ShadeRec& sr) const
 {
-return 1;
+	return 0.5;
 }

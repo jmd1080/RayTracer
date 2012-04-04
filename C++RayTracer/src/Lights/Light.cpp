@@ -13,6 +13,11 @@ Light::Light(void)
 	: Il(0)
 {}
 
+Light::Light(float in)
+	: Il(in)
+{}
+
+
 
 // ---------------------------------------------------------------------- copy constructor
 

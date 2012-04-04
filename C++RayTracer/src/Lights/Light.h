@@ -8,6 +8,8 @@ class Light {
 
 		Light(void);
 
+		Light(float in);
+
 		Light(const Light& light);
 
 		// Set the intensity

@@ -38,6 +38,9 @@ class World {
 		add_object(GeometricObject* object_ptr);
 
 		void
+		add_light(Light* light_ptr);
+
+		void
 		set_ambient_light(int light);
 
 		void
@@ -59,6 +62,9 @@ class World {
 
 		void
 		delete_objects(void);
+
+		void
+		delete_lights(void);
 };
 
 
@@ -69,7 +75,11 @@ World::add_object(GeometricObject* object_ptr) {
 	objects.push_back(object_ptr);
 }
 
-
+// ------------------------------------------------------------------ add_light
+inline void
+World::add_light(Light* light_ptr) {
+	lights.push_back(light_ptr);
+}
 
 // ------------------------------------------------------------------ set_ambient_light
 

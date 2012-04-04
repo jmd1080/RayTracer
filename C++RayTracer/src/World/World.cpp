@@ -31,7 +31,7 @@
 World::World(void)
 	:  	background_color(black),
 		tracer_ptr(new RayCast(this)),
-		ambient(1),
+		ambient(0.1),
 		vp()
 {
 	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
@@ -65,6 +65,7 @@ World::World(void)
 
 World::~World(void) {	
 	delete_objects();	
+	delete_lights();
 }
 
 
@@ -191,5 +192,19 @@ World::delete_objects(void) {
 	}	
 	
 	objects.erase (objects.begin(), objects.end());
+}
+
+// Same for lights
+
+void
+World::delete_lights(void) {
+	int num_lights = lights.size();
+
+	for (int j = 0; j < num_lights; j++) {
+		delete lights[j];
+		lights[j] = NULL;
+	}
+
+	lights.erase (lights.begin(), lights.end());
 }
 
