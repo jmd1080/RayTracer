@@ -3,7 +3,7 @@
 #include "World.h"
 #include "../Utilities/Constants.h"
 
-// geometric objects
+// primitives
 
 #include "../Primitives/Plane.h"
 #include "../Primitives/Sphere.h"
@@ -17,6 +17,9 @@
 #include "../Utilities/Maths.h"
 #include "../Utilities/RGBColor.h"
 
+// lights
+
+#include "../Lights/Directional.h"
 #include "../Tracers/RayCast.h"
 
 #include "../Material/Material.h"
@@ -42,6 +45,10 @@ World::World(void)
 	Material *m2 = new Material();
 	m1->set_color(red);
 	m2->set_color(white);
+
+	Directional *l1 = new Directional(Vector3D(0,0,1),0.4);
+
+	add_light(l1);
 
 	printf("Making sample world\n");
 

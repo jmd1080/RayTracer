@@ -31,11 +31,4 @@ class Directional: public Light {
 		Vector3D 	d;   				// direction of the light
 };
 
-
-
-inline void
-Directional::set_dir(const Vector3D& dir) {
-	d = dir;
-}
-
 #endif

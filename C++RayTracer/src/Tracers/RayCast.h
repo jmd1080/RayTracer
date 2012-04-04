@@ -11,7 +11,7 @@ class RayCast: public Tracer {
 		RayCast(World* _worldPtr);
 				
 		virtual											
-		~RayCast(void);		
+		~RayCast(void);
 
 		virtual RGBColor	
 		trace_ray(const Ray& ray) const;

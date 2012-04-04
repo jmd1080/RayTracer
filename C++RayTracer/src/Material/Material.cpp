@@ -21,6 +21,12 @@ RGBColor
 Material::shade(ShadeRec& sr)
 {
 	float I = sr.w.ambient*ka;
+	// Get contribution from all lights
+	int num_lights = sr.w.lights.size();
+
+	for (int j = 0; j < num_lights; j++) {
+		I += sr.w.lights[j]->get_intensity(sr);
+	}
 	return color*I;
 }
 
