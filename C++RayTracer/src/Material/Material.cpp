@@ -19,10 +19,7 @@ Material::set_color(RGBColor inColor)
 RGBColor
 Material::shade(ShadeRec& sr)
 {
-	double dist = sr.hit_point.distance(sr.ray.o);
-	RGBColor out = RGBColor((500-dist)/500);
-
-	return out;
+	return color;
 }
 
 Material&
