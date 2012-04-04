@@ -2,7 +2,6 @@
  * GeometricObject.cpp
  *
  *  Created on: 1 Apr 2012
- *      Author: James Davies
  */
 
 #include "../Utilities/Constants.h"
@@ -12,16 +11,16 @@
 // default constructor
 
 GeometricObject::GeometricObject(void)
-	: material(NULL)
+	: material_ptr(NULL)
 {}
 
 
 // ---------------------------------------------------------------------- copy constructor
 
 GeometricObject::GeometricObject (const GeometricObject& object) {
-	if(object.material)
-		material = object.material;
-	else  material = NULL;
+	if(object.material_ptr)
+		material_ptr = object.material_ptr;
+	else  material_ptr = NULL;
 }
 
 
@@ -32,8 +31,8 @@ GeometricObject::operator= (const GeometricObject& rhs) {
 	if (this == &rhs)
 		return (*this);
 
-	if (rhs.material)
-		material = rhs.material;
+	if (rhs.material_ptr)
+		material_ptr = rhs.material_ptr;
 
 	return (*this);
 }

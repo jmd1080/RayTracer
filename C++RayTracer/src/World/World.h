@@ -7,6 +7,7 @@
 #include "../Primitives/Sphere.h"
 #include "../Utilities/RGBColor.h"
 #include "../Tracers/Tracer.h"
+#include "../Lights/Light.h"
 #include "ViewPlane.h"
 #include <opencv/cv.h>
 
@@ -21,6 +22,7 @@ class World {
 		ViewPlane					vp;						//Used for orthogonal plotting
 		RGBColor					background_color;
 		vector<GeometricObject*>	objects;
+		vector<Light*>				lights;
 		Tracer*						tracer_ptr;
 		IplImage*					img;					//The output image of the world
 
