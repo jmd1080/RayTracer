@@ -36,11 +36,15 @@ World::World(void)
 {
 	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
 
+	printf("Making sample world materials\n");
+
 	Material *m1 = new Material();
-	m1->set_color(red);
 	Material *m2 = new Material();
+	m1->set_color(red);
 	m2->set_color(white);
+
 	printf("Making sample world\n");
+
 	Sphere *s1 = new Sphere(Point3D(-50,-50,-100),50);
 	s1->set_material(1);
 	s1->set_material_ptr(m1);
