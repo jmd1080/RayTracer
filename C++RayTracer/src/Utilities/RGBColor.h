@@ -52,6 +52,9 @@ class RGBColor {
 		
 		float												// the average of the components
 		average(void) const;
+
+		void												// caps all values to 1
+		cap(void);
 };
 
 

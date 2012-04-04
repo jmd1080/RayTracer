@@ -20,6 +20,9 @@ class Light {
 	    virtual float
 	    get_intensity(ShadeRec& sr) const = 0;
 
+		virtual float
+		get_rv(ShadeRec& sr) = 0;
+
 	protected:
 
 		Light&

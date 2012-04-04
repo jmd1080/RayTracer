@@ -59,6 +59,19 @@ Directional::set_intensity(float In)
 	Il = In;
 }
 
+float
+Directional::get_rv(ShadeRec& sr)
+{
+	Vector3D R = d - 2* (d*sr.normal) * sr.normal;
+
+	float rv =  R*sr.ray.d;
+
+	if (rv < 0)
+		rv = 0;
+
+	return R*sr.ray.d;
+}
+
 void
 Directional::set_dir(const Vector3D& dir) {
 	d = dir;

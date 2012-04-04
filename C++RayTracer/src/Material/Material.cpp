@@ -1,10 +1,11 @@
 #include "Material.h"
+#include <math.h>
 // --------------------------------------------------------assignment operator
 
 Material::Material(void):
 color(RGBColor(0)),
 kl(1),
-ks(1)
+ks(0.000005)
 {}
 
 Material::Material(const Material& material):
@@ -39,11 +40,17 @@ Material::shade(ShadeRec& sr)
 
 	for (int j = 0; j < num_lights; j++) {
 		// Lambertian
-		I += kl*sr.w.lights[j]->get_intensity(sr);
-		// Specular
+		float Il = kl*sr.w.lights[j]->get_intensity(sr);
 
+		// Specular
+		float Is = Il*ks*pow(sr.w.lights[j]->get_rv(sr),20);
+
+		I += Il + Is;
 	}
-	return color*I;
+
+	RGBColor result = color*I;
+
+	return result;
 }
 
 Material&

@@ -27,6 +27,9 @@ class Directional: public Light {
 		virtual float
 		get_intensity(ShadeRec& sr) const;
 
+		virtual float
+		get_rv(ShadeRec& sr);
+
 		void
 		set_dir(const Vector3D& dir);
 

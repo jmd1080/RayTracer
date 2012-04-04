@@ -7,30 +7,30 @@
 // -------------------------------------------------------- default constructor
 
 RGBColor::RGBColor(void)
-	: r(0.0), g(0.0), b(0.0) 							
+: r(0.0), g(0.0), b(0.0)
 {}
 
 
 // -------------------------------------------------------- constructor
 
 RGBColor::RGBColor(float c)
-	: r(c), g(c), b(c) 							
+: r(c), g(c), b(c)
 {}
-								
+
 
 // -------------------------------------------------------- constructor
 
 RGBColor::RGBColor(float _r, float _g, float _b)	
-	: r(_r), g(_g), b(_b)
+: r(_r), g(_g), b(_b)
 {}
 
 
 // -------------------------------------------------------- copy constructor
 
 RGBColor::RGBColor(const RGBColor& c)
-	: r(c.r), g(c.g), b(c.b)
+: r(c.r), g(c.g), b(c.b)
 {} 				 
-		
+
 
 // -------------------------------------------------------- destructor
 
@@ -49,7 +49,17 @@ RGBColor::operator= (const RGBColor& rhs) {
 
 	return (*this);
 }
- 
+
+void
+RGBColor::cap() {
+	if (r > 1)
+		r = 1;
+	if (g > 1)
+		g = 1;
+	if (b > 1)
+		b = 1;
+}
+
 
 // -------------------------------------------------------- powc
 // raise each component to the specified power
