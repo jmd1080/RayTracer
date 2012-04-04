@@ -4,7 +4,7 @@
 
 Material::Material(void):
 color(RGBColor(0)),
-kl(1),
+kl(0.5),
 ks(0.000005)
 {}
 
@@ -48,7 +48,7 @@ Material::shade(ShadeRec& sr)
 		I += Il + Is;
 	}
 
-	RGBColor result = color*I;
+	RGBColor result = RGBColor(color.r*I,color.g*I,color.b*I);
 
 	return result;
 }
