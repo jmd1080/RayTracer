@@ -6,18 +6,21 @@
  */
 
 #include "Directional.h"
+#include <stdio.h>
 
 // Default constructor
 
 Directional::Directional(void):
-Light(),
-d(Vector3D(0))
+	Light(),
+	Il(0),
+	d(Vector3D(0))
 {}
 
 // Constructor
 
 Directional::Directional(Vector3D dir, float In):
-		Light(In),
+		Light(),
+		Il(In),
 		d(dir)
 {}
 
@@ -25,7 +28,8 @@ Directional::Directional(Vector3D dir, float In):
 
 Directional::Directional(const Directional& directional):
 		Light(directional),
-		d(directional.d)
+		d(directional.d),
+		Il(directional.Il)
 {}
 
 Directional&
@@ -40,7 +44,19 @@ Directional::operator= (const Directional& rhs)
 float
 Directional::get_intensity(ShadeRec& sr) const
 {
-	return 0.5;
+	double result = Il * sr.normal * d;
+
+	// If self occlusion return 0
+	if (result < 0)
+		result = 0;
+
+	return result;
+}
+
+void
+Directional::set_intensity(float In)
+{
+	Il = In;
 }
 
 void

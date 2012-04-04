@@ -10,35 +10,21 @@
 // default constructor
 
 Light::Light(void)
-	: Il(0)
 {}
 
 Light::Light(float in)
-	: Il(in)
 {}
 
 
 
 // ---------------------------------------------------------------------- copy constructor
 
-Light::Light (const Light& light) {
-	Il = light.Il;
-}
+Light::Light (const Light& light) {}
 
 
 // ---------------------------------------------------------------------- assignment operator
 
 Light&
 Light::operator= (const Light& rhs) {
-
-	Il = rhs.Il;
 	return (*this);
-}
-
-
-// ---------------------------------------------------------------- set_intensity
-
-void
-Light::set_intensity(float In) {
-	Il = In;
 }

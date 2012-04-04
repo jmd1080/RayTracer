@@ -20,6 +20,10 @@ class Directional: public Light {
 		Directional& 										// assignment operator
 		operator= (const Directional& rhs);
 
+		// Set the intensity
+	    virtual void
+		set_intensity(float In);
+
 		virtual float
 		get_intensity(ShadeRec& sr) const;
 
@@ -28,6 +32,7 @@ class Directional: public Light {
 
 	private:
 
+		float		Il;					// intensity of the light
 		Vector3D 	d;   				// direction of the light
 };
 

@@ -46,7 +46,7 @@ World::World(void)
 	m1->set_color(red);
 	m2->set_color(white);
 
-	Directional *l1 = new Directional(Vector3D(0,0,1),0.4);
+	Light *l1 = new Directional(Vector3D(1,1,1),0.5);
 
 	add_light(l1);
 

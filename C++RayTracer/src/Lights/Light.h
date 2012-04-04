@@ -13,8 +13,8 @@ class Light {
 		Light(const Light& light);
 
 		// Set the intensity
-	    void
-		set_intensity(float In);
+	    virtual void
+		set_intensity(float In) = 0;
 
 	    // Returns the intensity given a shader record
 	    virtual float
@@ -25,8 +25,6 @@ class Light {
 		Light&
 		operator= (const Light& rhs);
 
-	private:
-		float Il;
 };
 
 #endif
