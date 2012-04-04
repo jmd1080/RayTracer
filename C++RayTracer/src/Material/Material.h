@@ -17,6 +17,12 @@ class Material {
 		shade(ShadeRec& sr);
 
 	    void
+	    set_ks(float spec);
+
+	    void
+	    set_kl(float lamb);
+
+	    void
 	    set_color(RGBColor color);
 
 	protected:
@@ -26,7 +32,8 @@ class Material {
 
 	private:
 		RGBColor color;
-		float ka; // ambient reflection coefficient
+		float kl; // lambertian reflection coefficient
+		float ks; // specular reflection coefficient
 };
 
 #endif
