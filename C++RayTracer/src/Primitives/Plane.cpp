@@ -33,7 +33,8 @@ Plane::set_normal(const Normal& norm)
 
 Plane::Plane(const Plane& plane):
 	GeometricObject(),
-	n(plane.n)
+	n(plane.n),
+	p(plane.p)
 {}
 
 Plane&
