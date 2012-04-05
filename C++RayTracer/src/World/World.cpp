@@ -7,6 +7,7 @@
 
 #include "../Primitives/Sphere.h"
 #include "../Primitives/Plane.h"
+#include "../Primitives/Triangle.h"
 
 // utilities
 
@@ -43,8 +44,10 @@ World::World(void)
 
 	Material *m1 = new Material();
 	Material *m2 = new Material();
+	Material *m3 = new Material();
 	m1->set_color(RGBColor(1,0.01,0.01));
 	m2->set_color(white);
+	m3->set_color(RGBColor(0.7,0.01,0.7));
 
 	Light *l1 = new Directional(Vector3D(1,1,1),0.5);
 
@@ -65,10 +68,14 @@ World::World(void)
 	Plane *p1 = new Plane(Normal(1,0,0), Point3D(200,0,0));
 	p1->set_material_ptr(m2);
 
+	Triangle *t1 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-200),Point3D(0,0,-300));
+	t1->set_material_ptr(m3);
+
 	add_object(s1);
 	add_object(s2);
 	add_object(s3);
 	add_object(p1);
+	add_object(t1);
 }
 
 

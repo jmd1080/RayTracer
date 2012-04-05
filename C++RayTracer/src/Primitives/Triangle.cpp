@@ -79,6 +79,9 @@ Triangle::hit(const Ray& ray, double& t, ShadeRec& s) const
 	if (gamma < 0)
 		return false;
 
+	if (beta + gamma > 1)
+		return false;
+
 	float d = 		(a1*(f1*l1 - h1*j1) + b1*(h1*i1 - e1*l1) + d1*(e1*j1 - f1*i1)) * div;
 
 	if (d < 0)
