@@ -20,6 +20,7 @@ int main() {
 	World w = World();
 	w.render_scene();
 	Pinhole p = Pinhole();
+	p.set_camera_position(Point3D(0,0,-1));
 	p.render_scene(w);
 	return 0;
 }

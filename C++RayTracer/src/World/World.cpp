@@ -65,7 +65,7 @@ World::World(void)
 	s3->set_material(2);
 	s3->set_material_ptr(m2);
 
-	Plane *p1 = new Plane(Normal(1,0,0), Point3D(200,0,0));
+	Plane *p1 = new Plane(Normal(-1,0,0), Point3D(200,0,0));
 	p1->set_material_ptr(m2);
 
 	Triangle *t1 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-200),Point3D(0,0,-300));
