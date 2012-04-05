@@ -56,7 +56,7 @@ Directional::get_intensity(ShadeRec& sr) const
 	Ray shadowRay;
 
 	shadowRay.o = sr.local_hit_point;
-	shadowRay.d = -1 * d;
+	shadowRay.d = d;
 
 	ShadeRec s(sr.w.hit_objects(shadowRay));
 

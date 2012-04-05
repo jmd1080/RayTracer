@@ -7,6 +7,7 @@
 
 #include "GeometricObject.h"
 #include "../Utilities/Normal.h"
+#include "../Utilities/Constants.h"
 #include "Plane.h"
 
 Plane::Plane(void):

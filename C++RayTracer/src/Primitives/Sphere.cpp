@@ -81,7 +81,7 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 		double denom = 2.0 * a;
 		t = (-b - e) / denom;    // smaller root
 
-		if (t > kEpsilon) {
+		if (t > 0) {
 			tmin = t;
 			sr.normal 	 = (temp + t * ray.d) / radius;
 			sr.local_hit_point = ray.o + t * ray.d;
