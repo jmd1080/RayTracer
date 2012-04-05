@@ -4,8 +4,8 @@
 
 Material::Material(void):
 color(RGBColor(0)),
-kl(0.5),
-ks(0.000005)
+kl(0.7),
+ks(0.0000001)
 {}
 
 Material::Material(const Material& material):
@@ -34,7 +34,7 @@ Material::set_ks(float spec)
 RGBColor
 Material::shade(ShadeRec& sr)
 {
-	float I = sr.w.ambient*kl;
+	double I = sr.w.ambient*kl;
 	// Get contribution from all lights
 	int num_lights = sr.w.lights.size();
 
@@ -43,12 +43,14 @@ Material::shade(ShadeRec& sr)
 		float Il = kl*sr.w.lights[j]->get_intensity(sr);
 
 		// Specular
-		float Is = Il*ks*pow(sr.w.lights[j]->get_rv(sr),20);
+		double Is =  - Il*ks*pow(sr.w.lights[j]->get_rv(sr),27);
 
 		I += Il + Is;
 	}
 
-	RGBColor result = RGBColor(color.r*I,color.g*I,color.b*I);
+	RGBColor result = color*I;
+
+	result.cap();
 
 	return result;
 }

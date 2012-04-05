@@ -42,7 +42,7 @@ World::World(void)
 
 	Material *m1 = new Material();
 	Material *m2 = new Material();
-	m1->set_color(red);
+	m1->set_color(RGBColor(1,0.01,0.01));
 	m2->set_color(white);
 
 	Light *l1 = new Directional(Vector3D(1,1,1),0.5);
