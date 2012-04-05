@@ -6,6 +6,7 @@
 // primitives
 
 #include "../Primitives/Sphere.h"
+#include "../Primitives/Plane.h"
 
 // utilities
 
@@ -60,9 +61,14 @@ World::World(void)
 	Sphere *s3 = new Sphere(Point3D(0,0,-300),50);
 	s3->set_material(2);
 	s3->set_material_ptr(m2);
+
+	Plane *p1 = new Plane(Normal(1,0,0), Point3D(200,0,0));
+	p1->set_material_ptr(m2);
+
 	add_object(s1);
 	add_object(s2);
 	add_object(s3);
+	add_object(p1);
 }
 
 

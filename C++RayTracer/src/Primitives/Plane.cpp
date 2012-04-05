@@ -45,6 +45,11 @@ Plane::operator= (const Plane& rhs)
 		return (*this);
 }
 
+Plane*
+Plane::clone(void) const {
+	return (new Plane(*this));
+}
+
 bool
 Plane::hit(const Ray& ray, double& t, ShadeRec& s) const
 {
@@ -55,6 +60,7 @@ Plane::hit(const Ray& ray, double& t, ShadeRec& s) const
 	if (d < 0)
 		return false;
 
+	t = d;
 	s.normal = n;
 	s.local_hit_point = ray.o + d * ray.d;
 	return true;

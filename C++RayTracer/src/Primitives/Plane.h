@@ -13,6 +13,9 @@ class Plane: public GeometricObject {
 
 		Plane(const Plane& plane);
 
+		virtual Plane*								// virtual copy constructor
+		clone(void) const;
+
 		Plane&
 		operator= (const Plane& plane);
 
