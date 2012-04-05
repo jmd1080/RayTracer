@@ -40,7 +40,6 @@ Pinhole::render_scene(const World& w)
 			for (int c = 0; c < vp.hres; c++) { // column
 				//Create ray for pixel
 				Vector3D rayDir = viewDir * d;
-				ray.o = camPos;
 
 				//Get position on view plane
 				rayDir+= (r - vp.vres/2)*up;

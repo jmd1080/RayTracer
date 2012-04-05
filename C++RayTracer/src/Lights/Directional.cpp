@@ -6,6 +6,7 @@
  */
 
 #include "Directional.h"
+#include "../World/World.h"
 #include <stdio.h>
 
 // Default constructor
@@ -49,6 +50,18 @@ Directional::get_intensity(ShadeRec& sr) const
 	// If self occlusion return 0
 	if (result < 0)
 		result = 0;
+
+	// Check for shadows
+
+	Ray shadowRay;
+
+	shadowRay.o = sr.local_hit_point;
+	shadowRay.d = -1 * d;
+
+	ShadeRec s(sr.w.hit_objects(shadowRay));
+
+	if (s.hit_an_object)
+		return 0;
 
 	return result;
 }
