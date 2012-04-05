@@ -49,7 +49,7 @@ World::World(void)
 	m2->set_color(white);
 	m3->set_color(RGBColor(0.7,0.01,0.7));
 
-	Light *l1 = new Directional(Vector3D(1,1,1),0.5);
+	Light *l1 = new Directional(Vector3D(-1,1,1),0.5);
 
 	add_light(l1);
 
