@@ -63,7 +63,7 @@ Plane::hit(const Ray& ray, double& t, ShadeRec& s) const
 		return false;
 
 	// if intersecting with the inverse side return false
-	if(ray.d*n > 0)
+	if(ray.d*n > kEpsilon)
 		return false;
 
 	t = d;

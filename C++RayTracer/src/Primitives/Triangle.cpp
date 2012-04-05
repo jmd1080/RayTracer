@@ -7,6 +7,7 @@
 
 #include "GeometricObject.h"
 #include "../Utilities/Normal.h"
+#include "../Utilities/Constants.h"
 #include "Triangle.h"
 
 Triangle::Triangle(void):
@@ -71,20 +72,20 @@ Triangle::hit(const Ray& ray, double& t, ShadeRec& s) const
 
 	float beta = 	(d1 *(f1*k1 - g1*j1) + b1*(g1*l1 - h1*k1) + c1*(h1*j1 - f1*l1)) * div;
 
-	if (beta < 0)
+	if (beta < kEpsilon)
 		return false;
 
 	float gamma = 	(a1*(h1*k1 - g1*l1) + d1*(g1*i1 - e1*k1) + c1*(e1*l1 - h1*i1)) * div;
 
-	if (gamma < 0)
+	if (gamma < kEpsilon)
 		return false;
 
-	if (beta + gamma > 1)
+	if (beta + gamma > 1 - kEpsilon)
 		return false;
 
 	float d = 		(a1*(f1*l1 - h1*j1) + b1*(h1*i1 - e1*l1) + d1*(e1*j1 - f1*i1)) * div;
 
-	if (d < 0)
+	if (d < kEpsilon)
 		return false;
 
 	t = d;
