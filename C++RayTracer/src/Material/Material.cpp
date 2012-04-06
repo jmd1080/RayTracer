@@ -5,11 +5,15 @@
 Material::Material(void):
 color(RGBColor(0)),
 kl(0.7),
-ks(0.0000001)
+ks(0.0000001),
+opacity(1)
 {}
 
 Material::Material(const Material& material):
-color(material.color)
+color(material.color),
+kl(material.kl),
+ks(material.ks),
+opacity(material.opacity)
 {}
 
 void
@@ -28,6 +32,14 @@ void
 Material::set_ks(float spec)
 {
 	ks = spec;
+}
+
+void
+Material::set_opacity(float op)
+{
+	opacity = op;
+	if (opacity > 1)
+		opacity = 1;
 }
 
 // Returns the colour of the object based on the shade record
@@ -49,6 +61,16 @@ Material::shade(ShadeRec& sr)
 	}
 
 	RGBColor result = color*I;
+
+	if (opacity != 1)
+	{
+		printf("fjfjfj\n");
+		Ray transRay;
+		transRay.o = sr.local_hit_point;
+		transRay.d = sr.ray.d;
+		RGBColor trans = sr.w.tracer_ptr->trace_ray(transRay);
+		result = opacity*result + (1-opacity)*trans;
+	}
 
 	result.cap();
 

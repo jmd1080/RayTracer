@@ -8,7 +8,6 @@
 #include <iostream>
 #include "cstdlib"
 #include "cmath"
-#include <opencv/cv.h>
 #include <opencv/highgui.h>
 #include "World/World.h"
 #include "Camera/Pinhole.h"
@@ -22,5 +21,6 @@ int main() {
 	Pinhole p = Pinhole();
 	p.set_camera_position(Point3D(0,0,0));
 	p.render_scene(w);
+
 	return 0;
 }

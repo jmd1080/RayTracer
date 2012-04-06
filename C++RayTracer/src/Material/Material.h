@@ -25,6 +25,10 @@ class Material {
 	    void
 	    set_color(RGBColor color);
 
+	    void
+	    set_opacity(float op);
+
+
 	protected:
 
 		Material&
@@ -34,6 +38,7 @@ class Material {
 		RGBColor color;
 		float kl; // lambertian reflection coefficient
 		float ks; // specular reflection coefficient
+		float opacity; // transparency coefficient
 };
 
 #endif
