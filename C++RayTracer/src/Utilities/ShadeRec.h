@@ -30,6 +30,7 @@ class ShadeRec {
 		float				t;					// ray parameter
 		World&				w;					// World reference
 		RGBColor            color;
+		double				inv_opacity;			// Used for transparency in shadows
 				
 		ShadeRec(World& wr);					// constructor
 		

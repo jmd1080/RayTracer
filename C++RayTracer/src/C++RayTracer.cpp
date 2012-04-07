@@ -21,7 +21,7 @@ int main() {
 	int total = 20;
 	Point3D center = Point3D(0,0,-300);
 	Pinhole p = Pinhole();
-	Point3D camPos = Point3D(0,0,300);
+	Point3D camPos = Point3D(0,0,0);
 	p.set_camera_position(camPos);
 	p.set_camera_dir(center - camPos);
 	p.render_scene(w);

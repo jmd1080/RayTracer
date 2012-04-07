@@ -61,7 +61,7 @@ Directional::get_intensity(ShadeRec& sr) const
 	ShadeRec s(sr.w.hit_objects(shadowRay));
 
 	if (s.hit_an_object)
-		return 0;
+		return result*(s.inv_opacity);
 
 	return result;
 }

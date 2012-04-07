@@ -55,7 +55,7 @@ Material::shade(ShadeRec& sr)
 		float Il = kl*sr.w.lights[j]->get_intensity(sr);
 
 		// Specular
-		double Is =  - Il*ks*pow(sr.w.lights[j]->get_rv(sr),27);
+		double Is =  Il*ks*pow(sr.w.lights[j]->get_rv(sr),27);
 
 		if (Il < 0)
 			Il = 0;
@@ -79,6 +79,12 @@ Material::shade(ShadeRec& sr)
 	result.cap();
 
 	return result;
+}
+
+double
+Material::get_opacity()
+{
+	return opacity;
 }
 
 Material&

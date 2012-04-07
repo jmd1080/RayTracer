@@ -21,7 +21,8 @@ ShadeRec::ShadeRec(World& wr)
 		ray(),
 		depth(0),
 		t(0.0),
-		w(wr)
+		w(wr),
+		inv_opacity(1)
 {}
 
 
@@ -37,7 +38,8 @@ ShadeRec::ShadeRec(const ShadeRec& sr)
 		ray(sr.ray),
 		depth(sr.depth),
 		t(sr.t),
-		w(sr.w)
+		w(sr.w),
+		inv_opacity(sr.inv_opacity)
 {}
 
 

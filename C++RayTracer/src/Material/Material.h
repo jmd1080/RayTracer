@@ -28,6 +28,9 @@ class Material {
 	    void
 	    set_opacity(float op);
 
+	    double
+	    get_opacity();
+
 
 	protected:
 

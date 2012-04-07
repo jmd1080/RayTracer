@@ -33,10 +33,10 @@
 // If no file is given create a default world with two spheres
 
 World::World(void)
-	:  	background_color(black),
-		tracer_ptr(new RayCast(this)),
-		ambient(0.1),
-		vp()
+:  	background_color(black),
+   	tracer_ptr(new RayCast(this)),
+   	ambient(0.1),
+   	vp()
 {
 	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
 
@@ -46,7 +46,7 @@ World::World(void)
 	Material *m2 = new Material();
 	Material *m3 = new Material();
 	m1->set_color(RGBColor(1,0.01,0.01));
-	m3->set_opacity(0.5);
+	m1->set_opacity(0.5);
 	m2->set_color(white);
 	m3->set_color(RGBColor(0.7,0.01,0.7));
 	//background_color= RGBColor(1,1,0.01);
@@ -106,14 +106,17 @@ World::hit_objects(const Ray& ray) {
 	sr.ray = ray;
 
 	for (int j = 0; j < num_objects; j++)
-		if (objects[j]->hit(ray, t, sr) && (t < tmin)) {
-			sr.hit_an_object	= true;
-			tmin 				= t;
-			sr.material = objects[j]->get_material();
-			sr.material_ptr     = objects[j]->get_material_ptr(); // TODO fix issues with material
-			sr.hit_point 		= ray.o + t * ray.d;
-			normal 				= sr.normal;
-			local_hit_point	 	= sr.local_hit_point;
+		if (objects[j]->hit(ray, t, sr)) {
+			sr.inv_opacity *= (1-objects[j]->get_material_ptr()->get_opacity());
+			if (t < tmin) {
+				sr.hit_an_object	= true;
+				tmin 				= t;
+				sr.material = objects[j]->get_material();
+				sr.material_ptr     = objects[j]->get_material_ptr(); // TODO fix issues with material
+				sr.hit_point 		= ray.o + t * ray.d;
+				normal 				= sr.normal;
+				local_hit_point	 	= sr.local_hit_point;
+			}
 		}
 
 	if(sr.hit_an_object) {
@@ -140,7 +143,7 @@ World::render_scene(void) const {
 	float		zw		= 100.0;				// hardwired in
 
 	ray.d = Vector3D(0, 0, -1);
-	
+
 
 	// Create image
 	//IplImage *display = cvCreateImage(cvSize(vres,hres), 8, 3);
@@ -207,12 +210,12 @@ World::display_image(void) const
 void
 World::delete_objects(void) {
 	int num_objects = objects.size();
-	
+
 	for (int j = 0; j < num_objects; j++) {
 		delete objects[j];
 		objects[j] = NULL;
 	}	
-	
+
 	objects.erase (objects.begin(), objects.end());
 }
 
