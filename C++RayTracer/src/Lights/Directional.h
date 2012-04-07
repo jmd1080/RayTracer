@@ -13,7 +13,7 @@ class Directional: public Light {
 
 		Directional(void);   								// Default constructor
 
-		Directional(Vector3D dir, float In);				// Constructor
+		Directional(Vector3D dir, RGBColor In);				// Constructor
 
 		Directional(const Directional& directional); 		// Copy constructor
 
@@ -22,9 +22,9 @@ class Directional: public Light {
 
 		// Set the intensity
 	    virtual void
-		set_intensity(float In);
+		set_intensity(RGBColor In);
 
-		virtual float
+		virtual RGBColor
 		get_intensity(ShadeRec& sr) const;
 
 		virtual float
@@ -35,7 +35,7 @@ class Directional: public Light {
 
 	private:
 
-		float		Il;					// intensity of the light
+		RGBColor	cl;					// color of the light
 		Vector3D 	d;   				// direction of the light
 };
 

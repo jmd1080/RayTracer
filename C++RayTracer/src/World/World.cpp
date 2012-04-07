@@ -35,7 +35,7 @@
 World::World(void)
 :  	background_color(black),
    	tracer_ptr(new RayCast(this)),
-   	ambient(0.1),
+   	ambient(RGBColor(0.1)),
    	vp()
 {
 	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
@@ -45,13 +45,15 @@ World::World(void)
 	Material *m1 = new Material();
 	Material *m2 = new Material();
 	Material *m3 = new Material();
+	Material *m4 = new Material();
 	m1->set_color(RGBColor(1,0.01,0.01));
-	m1->set_opacity(0.5);
+	//m2->set_opacity(0);
 	m2->set_color(white);
+	m4->set_color(white);
 	m3->set_color(RGBColor(0.7,0.01,0.7));
 	//background_color= RGBColor(1,1,0.01);
 
-	Light *l1 = new Directional(Vector3D(-1,1,1),0.5);
+	Light *l1 = new Directional(Vector3D(-1,1,1),RGBColor(0.5,0.5,0.5));
 
 	add_light(l1);
 
@@ -68,7 +70,7 @@ World::World(void)
 	s3->set_material_ptr(m2);
 
 	Plane *p1 = new Plane(Normal(-1,0,0), Point3D(200,0,0));
-	p1->set_material_ptr(m2);
+	p1->set_material_ptr(m4);
 
 	Triangle *t1 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-200),Point3D(0,0,-300));
 	t1->set_material_ptr(m3);

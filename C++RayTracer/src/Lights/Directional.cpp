@@ -13,15 +13,15 @@
 
 Directional::Directional(void):
 	Light(),
-	Il(0),
+	cl(RGBColor()),
 	d(Vector3D(0))
 {}
 
 // Constructor
 
-Directional::Directional(Vector3D dir, float In):
+Directional::Directional(Vector3D dir, RGBColor cIn):
 		Light(),
-		Il(In),
+		cl(cIn),
 		d(dir)
 {}
 
@@ -30,26 +30,26 @@ Directional::Directional(Vector3D dir, float In):
 Directional::Directional(const Directional& directional):
 		Light(directional),
 		d(directional.d),
-		Il(directional.Il)
+		cl(directional.cl)
 {}
 
 Directional&
 Directional::operator= (const Directional& rhs)
 {
-
 	Light::operator= (rhs);
 	d = rhs.d;
+	cl = rhs.cl;
 	return (*this);
 }
 
-float
+RGBColor
 Directional::get_intensity(ShadeRec& sr) const
 {
-	double result = Il * sr.normal * d;
+	RGBColor result = cl * (sr.normal * d);
 
 	// If self occlusion return 0
-	if (result < 0)
-		result = 0;
+	if (cl.r < 0 || cl.g < 0 || cl.b < 0)
+		result = RGBColor(0);
 
 	// Check for shadows
 
@@ -67,9 +67,9 @@ Directional::get_intensity(ShadeRec& sr) const
 }
 
 void
-Directional::set_intensity(float In)
+Directional::set_intensity(RGBColor In)
 {
-	Il = In;
+	cl = In;
 }
 
 float

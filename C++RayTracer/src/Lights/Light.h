@@ -14,10 +14,10 @@ class Light {
 
 		// Set the intensity
 	    virtual void
-		set_intensity(float In) = 0;
+		set_intensity(RGBColor In) = 0;
 
 	    // Returns the intensity given a shader record
-	    virtual float
+	    virtual RGBColor
 	    get_intensity(ShadeRec& sr) const = 0;
 
 		virtual float

@@ -46,21 +46,21 @@ Material::set_opacity(float op)
 RGBColor
 Material::shade(ShadeRec& sr)
 {
-	double I = sr.w.ambient*kl;
+	RGBColor I = sr.w.ambient*kl;
 	// Get contribution from all lights
 	int num_lights = sr.w.lights.size();
 
 	for (int j = 0; j < num_lights; j++) {
 		// Lambertian
-		float Il = kl*sr.w.lights[j]->get_intensity(sr);
+		RGBColor Il = kl*sr.w.lights[j]->get_intensity(sr);
 
 		// Specular
-		double Is =  Il*ks*pow(sr.w.lights[j]->get_rv(sr),27);
+		RGBColor Is =  Il*ks*pow(sr.w.lights[j]->get_rv(sr),27);
 
-		if (Il < 0)
-			Il = 0;
-		if (Is < 0)
-			Is = 0;
+		if (Il.r < 0 || Il.g < 0 || Il.b < 0)
+			Il = RGBColor(0);
+		if (Is.r < 0 || Is.g < 0 || Is.b < 0)
+			Is = RGBColor(0);
 
 		I += Il + Is;
 	}
@@ -70,9 +70,9 @@ Material::shade(ShadeRec& sr)
 	if (opacity != 1)
 	{
 		Ray transRay;
-		transRay.o = sr.hit_point;
-		transRay.d = -1*(sr.ray.o - sr.hit_point);
-		RGBColor trans = sr.w.tracer_ptr->trace_ray(transRay);
+		transRay.o = sr.local_hit_point;
+		transRay.d = -1*(sr.ray.o - sr.local_hit_point);
+		RGBColor trans = sr.w.tracer_ptr->trace_ray(transRay); // TODO weird color rounding error, trans is wrong!
 		result = opacity*result + (1-opacity)*trans;
 	}
 

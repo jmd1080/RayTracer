@@ -25,7 +25,7 @@ class World {
 		Tracer*						tracer_ptr;
 		IplImage*					img;					//The output image of the world
 
-		float 						ambient;				//Ambient light intensity
+		RGBColor					ambient;				//Ambient light
 
 	public:
 
