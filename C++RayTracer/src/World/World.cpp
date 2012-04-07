@@ -46,8 +46,10 @@ World::World(void)
 	Material *m2 = new Material();
 	Material *m3 = new Material();
 	m1->set_color(RGBColor(1,0.01,0.01));
+	m3->set_opacity(0.5);
 	m2->set_color(white);
 	m3->set_color(RGBColor(0.7,0.01,0.7));
+	//background_color= RGBColor(1,1,0.01);
 
 	Light *l1 = new Directional(Vector3D(-1,1,1),0.5);
 
@@ -101,6 +103,7 @@ World::hit_objects(const Ray& ray) {
 	Point3D local_hit_point;
 	float		tmin 			= kHugeValue;
 	int 		num_objects 	= objects.size();
+	sr.ray = ray;
 
 	for (int j = 0; j < num_objects; j++)
 		if (objects[j]->hit(ray, t, sr) && (t < tmin)) {

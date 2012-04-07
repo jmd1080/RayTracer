@@ -32,6 +32,10 @@ Pinhole::render_scene(const World& w)
 		Vector3D up = -1 * viewDir ^ right;
 		up.normalize();
 
+		if (up.z > up.y && rollAngle < PI)
+		{
+			rollAngle += PI;
+		}
 
 		//Vector3D up = Vector3D(0,1,0);
 		//Vector3D right = Vector3D(1,0,0);

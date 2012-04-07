@@ -57,6 +57,11 @@ Material::shade(ShadeRec& sr)
 		// Specular
 		double Is =  - Il*ks*pow(sr.w.lights[j]->get_rv(sr),27);
 
+		if (Il < 0)
+			Il = 0;
+		if (Is < 0)
+			Is = 0;
+
 		I += Il + Is;
 	}
 
@@ -64,10 +69,9 @@ Material::shade(ShadeRec& sr)
 
 	if (opacity != 1)
 	{
-		printf("fjfjfj\n");
 		Ray transRay;
-		transRay.o = sr.local_hit_point;
-		transRay.d = sr.ray.d;
+		transRay.o = sr.hit_point;
+		transRay.d = -1*(sr.ray.o - sr.hit_point);
 		RGBColor trans = sr.w.tracer_ptr->trace_ray(transRay);
 		result = opacity*result + (1-opacity)*trans;
 	}
