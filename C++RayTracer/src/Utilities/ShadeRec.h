@@ -28,6 +28,8 @@ class ShadeRec {
 		Ray					ray;				// Required for specular highlights and area lights
 		int					depth;				// recursion depth
 		float				t;					// ray parameter
+		float				tmax;				// Used for CSG
+		Normal				normal_max;
 		World&				w;					// World reference
 		RGBColor            color;
 		double				inv_opacity;			// Used for transparency in shadows

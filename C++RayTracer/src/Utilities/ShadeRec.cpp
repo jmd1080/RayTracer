@@ -12,39 +12,43 @@
 // ------------------------------------------------------------------ constructor
 
 ShadeRec::ShadeRec(World& wr)
-	: 	hit_an_object(false),
-		material_ptr(NULL),
-	  	material(0),
-		hit_point(),
-		local_hit_point(),
-		normal(),
-		ray(),
-		depth(0),
-		t(0.0),
-		w(wr),
-		inv_opacity(1)
+: 	hit_an_object(false),
+  	material_ptr(NULL),
+  	material(0),
+  	hit_point(),
+  	local_hit_point(),
+  	normal(),
+  	ray(),
+  	depth(0),
+  	t(0.0),
+  	w(wr),
+  	inv_opacity(1),
+  	normal_max(),
+  	tmax(0)
 {}
 
 
 // ------------------------------------------------------------------ copy constructor
 
 ShadeRec::ShadeRec(const ShadeRec& sr)
-	: 	hit_an_object(sr.hit_an_object),
-		material(sr.material),
-		material_ptr(sr.material_ptr),
-		hit_point(sr.hit_point),
-		local_hit_point(sr.local_hit_point),
-		normal(sr.normal),
-		ray(sr.ray),
-		depth(sr.depth),
-		t(sr.t),
-		w(sr.w),
-		inv_opacity(sr.inv_opacity)
+: 	hit_an_object(sr.hit_an_object),
+  	material(sr.material),
+  	material_ptr(sr.material_ptr),
+  	hit_point(sr.hit_point),
+  	local_hit_point(sr.local_hit_point),
+  	normal(sr.normal),
+  	ray(sr.ray),
+  	depth(sr.depth),
+  	t(sr.t),
+  	w(sr.w),
+  	inv_opacity(sr.inv_opacity),
+  	normal_max(sr.normal_max),
+  	tmax(sr.tmax)
 {}
 
 
 
-		
-		
-						
-		
+
+
+
+
