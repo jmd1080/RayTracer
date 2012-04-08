@@ -82,37 +82,84 @@ CSG::union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 	double amin, amax, bmin, bmax;
 	ShadeRec srA = ShadeRec(sr.w);
 	ShadeRec srB = ShadeRec(sr.w);
-	a->hit(ray, amin,amax,srA);
-	b->hit(ray, bmin,bmax,srB);
+	bool ahit = a->hit(ray, amin,amax,srA);
+	bool bhit = b->hit(ray, bmin,bmax,srB);
 
-	if ((bmin< amin ) && (bmax> amin ) )
+	// cope with non-hits
+	if (!ahit)
 	{
-		tmin = amin;
-		sr.local_hit_point = srA.local_hit_point;
-		sr.normal = srA.normal;
-		return true;
+		amin = bmin + 1;
 	}
-	else if ((amin< bmin ) && (amax> bmin ) )
+	if (!bhit)
 	{
-		tmin = bmin;
-		sr.local_hit_point = srB.local_hit_point;
-		sr.normal = srB.normal;
-		sr.material_ptr = srB.material_ptr;
-		return true;
+		bmin = amin + 1;
 	}
 
-	return false;
+	if(ahit || bhit)
+	{
+		if (bmin < amin)
+		{
+			sr.normal = srB.normal;
+			sr.hit_point = srB.hit_point;
+			tmin = bmin;
+			sr.t = bmin;
+		}
+		else
+		{
+			sr.normal = srA.normal;
+			sr.hit_point = srA.hit_point;
+			tmin = amin;
+			sr.t = amin;
+		}
+		if (amax > bmax)
+		{
+			tmax = amax;
+			sr.normal_max = srA.normal_max;
+		}
+		else
+		{
+			tmax = bmax;
+			sr.normal_max = srB.normal_max;
+		}
+		return true;
+	}
+	else
+		return false;
 }
 
 bool
 CSG::sub_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 {
+
 	return false;
 }
 
 bool
 CSG::intersect_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 {
+	double amin, amax, bmin, bmax;
+	ShadeRec srA = ShadeRec(sr.w);
+	ShadeRec srB = ShadeRec(sr.w);
+	bool ahit = a->hit(ray, amin,amax,srA);
+	bool bhit = b->hit(ray, bmin,bmax,srB);
+	if(ahit || bhit)
+	{
+		if ((bmin< amin ) && (bmax> amin ) )
+		{
+			tmin = amin;
+			sr.local_hit_point = srA.local_hit_point;
+			sr.normal = srA.normal;
+			return true;
+		}
+		if ((amin< bmin ) && (amax> bmin ) )
+		{
+			tmin = bmin;
+			sr.local_hit_point = srB.local_hit_point;
+			sr.normal = srB.normal;
+			sr.material_ptr = srB.material_ptr;
+			return true;
+		}
+	}
 	return false;
 }
 
