@@ -3,8 +3,8 @@
 #include "../Utilities/Vector3D.h"
 #include "Pinhole.h"
 #include <math.h>
+#include <time.h>
 #include "../Tracers/RayCast.h"
-
 
 // ----------------------------------------------------------------------------- default constructor
 
@@ -15,15 +15,28 @@ Pinhole::Pinhole(void)
 		rollAngle(0),
 		samples(1)
 {}
-
-
+/*
+float
+knuth(float lambda)
+{
+	float L = exp(-lambda);
+	int k = 0;
+	float p = 1;
+	do {
+		k = k + 1;
+		double u = double(rand()) / RAND_MAX;
+		p = p * u;
+	}
+	while (p>L);
+	return k - 1;
+}
+*/
 void
 Pinhole::render_scene(const World& w)
 {
 		Ray	ray;
 		ray.o = camPos;
 		ViewPlane vp(w.vp);
-
 		RGBColor pixel_color;
 
 		Vector3D up1 = Vector3D(sin(rollAngle),cos(rollAngle),0);
@@ -68,8 +81,6 @@ Pinhole::render_scene(const World& w)
 				pixel_col = pixel_col / (samples*samples);
 
 				w.draw_pixel(pixel_col,c,r);
-
-
 
 			}
 
