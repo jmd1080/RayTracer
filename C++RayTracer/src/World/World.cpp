@@ -64,9 +64,9 @@ World::World(void)
 	//background_color= RGBColor(1,1,0.01);
 
 	Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.3,0.3,0.3));
-	//add_light(l2);
-	Light *l3 = new Directional(Vector3D(-1,1,-1),RGBColor(0.3,0.3,0.3));
-		add_light(l3);
+	add_light(l2);
+	Light *l3 = new Directional(Vector3D(-1,1,-1),RGBColor(0.5,0.5,0.5));
+	//	add_light(l3);
 
 	Light *l1 = new Point(Point3D(-200,0,0),RGBColor(0.5,0.5,0.5));
 
@@ -91,18 +91,32 @@ World::World(void)
 
 	// CSG ************************
 
-	Sphere *CSG1 = new Sphere(Point3D(50,25,-500),50);
+	Sphere *CSG1 = new Sphere(Point3D(50,125,-500),50);
 	CSG1->set_material_ptr(m1);
-	Sphere *CSG2 = new Sphere(Point3D(50,-25,-500),50);
+	Sphere *CSG2 = new Sphere(Point3D(50,75,-500),50);
 	CSG2->set_material_ptr(m3);
 
-	CSG *C = new CSG(CSG1,CSG2,UNION);
+	m1->set_kr(0);
+	CSG *C = new CSG(CSG1,CSG2,INTERSECTION);
 	C->set_material_ptr(m1);
 	add_object(C);
 
+	printf("MADE 1!\n");
 
-	//add_object(CSG1);
-	//add_object(CSG2);
+	Sphere *CSG3 = new Sphere(Point3D(50,-100,-500),50);
+	CSG3->set_material_ptr(m1);
+	Sphere *CSG4 = new Sphere(Point3D(50,-150,-500),50);
+	CSG4->set_material_ptr(m3);
+
+	CSG *C2 = new CSG(CSG3,CSG4,UNION);
+	C2->set_material_ptr(m3);
+	add_object(C2);
+
+	printf("MADE 2!\n");
+
+
+	//add_object(CSG3);
+	//add_object(CSG4);
 
 	// ****************************
 
@@ -232,6 +246,14 @@ World::display_image(void) const
 	cvShowImage("Image",img);
 	cvWaitKey(0);
 }
+
+//TODO temp debug
+void
+World::show_image(void) const
+{
+	cvShowImage("Image",img);
+}
+
 
 
 

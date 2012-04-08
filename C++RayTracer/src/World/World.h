@@ -57,6 +57,10 @@ class World {
 		void
 		display_image(void) const;
 
+		//TODO TEMP DEBUG
+		void
+		show_image(void) const;
+
 	private:
 
 		void
@@ -64,6 +68,8 @@ class World {
 
 		void
 		delete_lights(void);
+
+
 };
 
 
@@ -86,5 +92,6 @@ inline void
 World::set_ambient_light(int light) {
 	ambient = light;
 }
+
 
 #endif

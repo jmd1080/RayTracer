@@ -51,10 +51,10 @@ Pinhole::render_scene(const World& w)
 		}
 
 		for (int r = 0; r < vp.vres; r++) // row
+		{
 			for (int c = 0; c < vp.hres; c++) { // column
 				RGBColor pixel_col = RGBColor();
 				// Anti-aliasing code
-				//printf("SAMPLE\n");
 				for (int i = 0; i < samples; i++)
 					for (int j = 0; j < samples; j++)
 					{
@@ -82,7 +82,11 @@ Pinhole::render_scene(const World& w)
 
 				w.draw_pixel(pixel_col,c,r);
 
+
 			}
+			if (r % 10 == 0)
+				w.display_image();
+		}
 
 		w.display_image();
 }

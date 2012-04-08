@@ -137,6 +137,7 @@ CSG::sub_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 bool
 CSG::intersect_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 {
+	//printf("Intersect HIT\n");
 	double amin, amax, bmin, bmax;
 	ShadeRec srA = ShadeRec(sr.w);
 	ShadeRec srB = ShadeRec(sr.w);
