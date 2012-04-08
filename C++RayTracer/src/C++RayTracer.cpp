@@ -25,6 +25,7 @@ int main() {
 	p.set_camera_position(camPos);
 	p.set_camera_dir(center - camPos);
 	p.render_scene(w);
+	printf("Rendering complete\n");
 	/*
 	 * 	int total = 20;
 	 *

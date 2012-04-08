@@ -88,11 +88,23 @@ World::World(void)
 	Triangle *t1 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-200),Point3D(0,0,-300));
 	t1->set_material_ptr(m3);
 
-	add_object(s1);
+	// CSG ************************
+
+	Sphere *CSG1 = new Sphere(Point3D(50,25,-500),50);
+	CSG1->set_material_ptr(m1);
+	Sphere *CSG2 = new Sphere(Point3D(50,-25,-500),50);
+	CSG2->set_material_ptr(m3);
+
+	add_object(CSG1);
+	add_object(CSG2);
+
+	// ****************************
+
+	/*add_object(s1);
 	add_object(s2);
-	add_object(s3);
-	add_object(p1);
 	add_object(t1);
+	add_object(s3);*/
+	add_object(p1);
 }
 
 
@@ -186,7 +198,6 @@ World::render_scene(void) const {
 			draw_pixel(pixel_color, c, r);
 		}	
 	}
-
 	display_image();
 }  
 
