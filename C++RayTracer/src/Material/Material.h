@@ -23,6 +23,9 @@ class Material {
 	    set_kl(float lamb);
 
 	    void
+	    set_kr(float reflect);
+
+	    void
 	    set_color(RGBColor color);
 
 	    void
@@ -42,6 +45,7 @@ class Material {
 		float kl; // lambertian reflection coefficient
 		float ks; // specular reflection coefficient
 		float opacity; // transparency coefficient
+		float kr; // reflection coefficient
 };
 
 #endif

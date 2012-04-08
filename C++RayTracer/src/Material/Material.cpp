@@ -5,15 +5,17 @@
 Material::Material(void):
 color(RGBColor(0)),
 kl(0.7),
-ks(0.0000001),
-opacity(1)
+ks(0.000001),
+opacity(1),
+kr(0)
 {}
 
 Material::Material(const Material& material):
 color(material.color),
 kl(material.kl),
 ks(material.ks),
-opacity(material.opacity)
+opacity(material.opacity),
+kr(kr)
 {}
 
 void
@@ -32,6 +34,12 @@ void
 Material::set_ks(float spec)
 {
 	ks = spec;
+}
+
+void
+Material::set_kr(float reflect)
+{
+	kr = reflect;
 }
 
 void
@@ -59,13 +67,18 @@ Material::shade(ShadeRec& sr)
 
 		if (Il.r < 0 || Il.g < 0 || Il.b < 0)
 			Il = RGBColor(0);
-		if (Is.r < 0 || Is.g < 0 || Is.b < 0)
-			Is = RGBColor(0);
+
+		//if (Is.r < 0 || Is.g < 0 || Is.b < 0)
+			//Is = RGBColor(0);
+
+		//Is = RGBColor(0);
+		//Il = RGBColor(0);
 
 		I += Il + Is;
 	}
 
 	RGBColor result = color*I;
+
 
 	if (opacity != 1)
 	{
@@ -74,6 +87,18 @@ Material::shade(ShadeRec& sr)
 		transRay.d = -1*(sr.ray.o - sr.local_hit_point);
 		RGBColor trans = sr.w.tracer_ptr->trace_ray(transRay); // TODO weird color rounding error, trans is wrong!
 		result = opacity*result + (1-opacity)*trans;
+	}
+
+	if (kr > 0 && sr.depth < MAX_DEPTH)
+	{
+		Ray reflectRay;
+		reflectRay.o = sr.local_hit_point;
+
+		// R = E – 2.0 * (N.E) * N
+
+		reflectRay.d = sr.ray.d - (2 * (sr.normal * sr.ray.d) * sr.normal);
+		RGBColor reflect = sr.w.tracer_ptr->trace_ray(reflectRay,sr.depth+1);
+		result += kr*reflect;
 	}
 
 	result.cap();

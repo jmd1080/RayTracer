@@ -21,6 +21,7 @@
 // lights
 
 #include "../Lights/Directional.h"
+#include "../Lights/Point.h"
 #include "../Tracers/RayCast.h"
 
 #include "../Material/Material.h"
@@ -46,16 +47,22 @@ World::World(void)
 	Material *m2 = new Material();
 	Material *m3 = new Material();
 	Material *m4 = new Material();
-	m1->set_color(RGBColor(1,0.01,0.01));
+	m1->set_color(RGBColor(red));//1,0.01,0.01));
 	//m2->set_opacity(0);
 	m2->set_color(white);
 	m4->set_color(white);
-	m3->set_color(RGBColor(0.7,0.01,0.7));
+	m2->set_kr(0.1);
+	m3->set_color(white);//RGBColor(0.7,0.01,0.7));
 	//background_color= RGBColor(1,1,0.01);
 
-	Light *l1 = new Directional(Vector3D(-1,1,1),RGBColor(0.5,0.5,0.5));
+	Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.3,0.3,0.3));
+	add_light(l2);
+	Light *l3 = new Directional(Vector3D(-1,1,-1),RGBColor(0.3,0.3,0.3));
+		add_light(l3);
 
-	add_light(l1);
+	Light *l1 = new Point(Point3D(-200,0,0),RGBColor(0.5,0.5,0.5));
+
+	//add_light(l1);
 
 	printf("Making sample world\n");
 
