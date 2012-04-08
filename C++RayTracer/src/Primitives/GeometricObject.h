@@ -25,7 +25,7 @@ class GeometricObject {
 		~GeometricObject (void);	
 			
 		virtual bool 												 
-		hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
+		hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const = 0;
 				
 		int
 		get_material(void) const;

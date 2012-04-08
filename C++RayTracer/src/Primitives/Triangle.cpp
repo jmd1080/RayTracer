@@ -59,7 +59,7 @@ Triangle::clone(void) const {
 }
 
 bool
-Triangle::hit(const Ray& ray, double& t, ShadeRec& s) const
+Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 {
 	// Find intersection, source p.362 Ray Tracing from the ground up
 	// TODO remove repeated calculations

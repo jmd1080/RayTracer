@@ -10,6 +10,8 @@
 #include "CSG.h"
 #include "../Utilities/Constants.h"
 #include "math.h"
+#include "../Utilities/ShadeRec.h"
+#include <stdio.h>
 
 // ---------------------------------------------------------------- default constructor
 
@@ -74,19 +76,47 @@ CSG::operator= (const CSG& rhs)
 //TODO Create proper destructor
 
 bool
-CSG::union_hit(const Ray& ray, double& tmin, ShadeRec& sr) const
+CSG::union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
+{
+	printf("UNION HIT\n");
+	double amin, amax, bmin, bmax;
+	ShadeRec srA = ShadeRec(sr.w);
+	ShadeRec srB = ShadeRec(sr.w);
+	a->hit(ray, amin,amax,srA);
+	b->hit(ray, bmin,bmax,srB);
+
+	if ((bmin< amin ) and (bmax> amin ) )
+	{
+		tmin = amin;
+		sr.local_hit_point = srA.local_hit_point;
+		sr.normal = srA.normal;
+		sr.material_ptr = srA.material_ptr;
+		printf("GO HIT A\n");
+
+		return true;
+	}
+	else if ((amin< bmin ) and (amax> bmin ) )
+	{
+		tmin = bmin;
+		sr.local_hit_point = srB.local_hit_point;
+		sr.normal = srB.normal;
+		sr.material_ptr = srB.material_ptr;
+		printf("GO HIT B\n");
+
+		return true;
+	}
+
+	return false;
+}
+
+bool
+CSG::sub_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 {
 	return false;
 }
 
 bool
-CSG::sub_hit(const Ray& ray, double& tmin, ShadeRec& sr) const
-{
-	return false;
-}
-
-bool
-CSG::intersect_hit(const Ray& ray, double& tmin, ShadeRec& sr) const
+CSG::intersect_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 {
 	return false;
 }
@@ -95,16 +125,16 @@ CSG::intersect_hit(const Ray& ray, double& tmin, ShadeRec& sr) const
 //---------------------------------------------------------------- hit
 
 bool
-CSG::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+CSG::hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const {
 	switch (op) {
 	case UNION:
-		return union_hit(ray,tmin,sr);
+		return union_hit(ray,tmin,tmax, sr);
 		break;
 	case SUBTRACTION:
-		return sub_hit(ray,tmin,sr);
+		return sub_hit(ray,tmin,tmax, sr);
 		break;
 	case INTERSECTION:
-		return intersect_hit(ray, tmin, sr);
+		return intersect_hit(ray, tmin, tmax, sr);
 		break;
 	}
 	return (false);

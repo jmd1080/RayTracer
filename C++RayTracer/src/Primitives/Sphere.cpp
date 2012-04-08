@@ -2,24 +2,25 @@
 
 #include "Sphere.h"
 #include "math.h"
+#include <stdio.h>
 
 const double Sphere::kEpsilon = 0.001;
 
 // ---------------------------------------------------------------- default constructor
 
 Sphere::Sphere(void)
-	: 	GeometricObject(),
-		center(0.0),
-		radius(1.0)
+: 	GeometricObject(),
+  	center(0.0),
+  	radius(1.0)
 {}
 
 
 // ---------------------------------------------------------------- constructor
 
 Sphere::Sphere(Point3D c, double r)
-	: 	GeometricObject(),
-		center(c),
-		radius(r)
+: 	GeometricObject(),
+  	center(c),
+  	radius(r)
 {}
 
 
@@ -34,9 +35,9 @@ Sphere::clone(void) const {
 // ---------------------------------------------------------------- copy constructor
 
 Sphere::Sphere (const Sphere& sphere)
-	: 	GeometricObject(sphere),
-		center(sphere.center),
-		radius(sphere.radius)
+: 	GeometricObject(sphere),
+  	center(sphere.center),
+  	radius(sphere.radius)
 {}
 
 
@@ -66,8 +67,8 @@ Sphere::~Sphere(void) {}
 //---------------------------------------------------------------- hit
 
 bool
-Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-	double 		t;
+Sphere::hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const {
+	double t;
 	Vector3D	temp 	= ray.o - center;
 	double 		a 		= ray.d * ray.d;
 	double 		b 		= 2.0 * temp * ray.d;
@@ -80,21 +81,30 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 		double e = sqrt(disc);
 		double denom = 2.0 * a;
 		t = (-b - e) / denom;    // smaller root
+		if (t < -kEpsilon) {
+			tmax = t;
+			sr.normal_max   = (temp + t * ray.d) / radius;
+			sr.max_hit_point = ray.o + t * ray.d;
+		}
 
 		if (t > kEpsilon) {
 			tmin = t;
 			sr.normal 	 = (temp + t * ray.d) / radius;
 			sr.local_hit_point = ray.o + t * ray.d;
-			return (true);
+			t = (-b + e) / denom;    // larger root
+			tmax = t;
+			sr.normal_max   = (temp + t * ray.d) / radius;
+			sr.max_hit_point = ray.o + t * ray.d;
+			return true;
 		}
-
 		t = (-b + e) / denom;    // larger root
 
 		if (t > kEpsilon) {
 			tmin = t;
+
 			sr.normal   = (temp + t * ray.d) / radius;
 			sr.local_hit_point = ray.o + t * ray.d;
-			return (true);
+			return true;
 		}
 	}
 

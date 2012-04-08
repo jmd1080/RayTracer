@@ -53,7 +53,7 @@ Plane::clone(void) const {
 }
 
 bool
-Plane::hit(const Ray& ray, double& t, ShadeRec& s) const
+Plane::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 {
 	// find intersection point using formula from http://en.wikipedia.org/wiki/Line-plane_intersection
 	float d = ((p - ray.o) * n) / (ray.d * n);

@@ -35,7 +35,7 @@ class Triangle: public GeometricObject {
 		set_points(const Point3D& ai, const Point3D& bi, const Point3D& ci);
 
 		virtual bool
-		hit(const Ray& ray, double& t, ShadeRec& s) const;
+		hit(const Ray& ray, double& t, double& tmax,ShadeRec& s) const;
 
 	private:
 

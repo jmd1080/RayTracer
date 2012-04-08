@@ -26,7 +26,7 @@ class Plane: public GeometricObject {
 		set_point(const Point3D& point);
 
 		virtual bool
-		hit(const Ray& ray, double& t, ShadeRec& s) const;
+		hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const;
 
 	private:
 

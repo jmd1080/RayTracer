@@ -8,6 +8,7 @@
 #include "../Primitives/Sphere.h"
 #include "../Primitives/Plane.h"
 #include "../Primitives/Triangle.h"
+#include "../Primitives/CSG.h"
 
 // utilities
 
@@ -95,8 +96,11 @@ World::World(void)
 	Sphere *CSG2 = new Sphere(Point3D(50,-25,-500),50);
 	CSG2->set_material_ptr(m3);
 
-	add_object(CSG1);
-	add_object(CSG2);
+	CSG *C = new CSG(CSG1,CSG2,UNION);
+	add_object(C);
+
+	//add_object(CSG1);
+	//add_object(CSG2);
 
 	// ****************************
 
@@ -128,12 +132,13 @@ World::hit_objects(const Ray& ray) {
 	double		t;
 	Normal normal;
 	Point3D local_hit_point;
-	float		tmin 			= kHugeValue;
+	double		tmin 			= kHugeValue;
+	double		tmax			= kHugeValue;
 	int 		num_objects 	= objects.size();
 	sr.ray = ray;
 
 	for (int j = 0; j < num_objects; j++)
-		if (objects[j]->hit(ray, t, sr)) {
+		if (objects[j]->hit(ray, t, tmax, sr)) {
 			sr.inv_opacity *= (1-objects[j]->get_material_ptr()->get_opacity());
 			if (t < tmin) {
 				sr.hit_an_object	= true;

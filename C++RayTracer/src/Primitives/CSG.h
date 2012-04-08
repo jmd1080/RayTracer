@@ -18,13 +18,13 @@ class CSG: public GeometricObject {
 		CSG(const CSG& CSG);
 
 		bool
-		union_hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+		union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const;
 
 		bool
-		sub_hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+		sub_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const;
 
 		bool
-		intersect_hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+		intersect_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const;
 
 		virtual CSG*								// virtual copy constructor
 		clone(void) const;
@@ -33,7 +33,7 @@ class CSG: public GeometricObject {
 		operator= (const CSG& CSG);
 
 		virtual bool
-		hit(const Ray& ray, double& t, ShadeRec& s) const;
+		hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const;
 
 	private:
 
