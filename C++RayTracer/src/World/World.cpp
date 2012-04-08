@@ -97,15 +97,17 @@ World::World(void)
 	CSG2->set_material_ptr(m3);
 
 	CSG *C = new CSG(CSG1,CSG2,UNION);
+	C->set_material_ptr(m1);
 	add_object(C);
+
 
 	//add_object(CSG1);
 	//add_object(CSG2);
 
 	// ****************************
 
-	/*add_object(s1);
-	add_object(s2);
+	add_object(s1);
+	/*add_object(s2);
 	add_object(t1);
 	add_object(s3);*/
 	add_object(p1);

@@ -12,6 +12,7 @@
 #include "math.h"
 #include "../Utilities/ShadeRec.h"
 #include <stdio.h>
+#include "../Material/Material.h"
 
 // ---------------------------------------------------------------- default constructor
 
@@ -78,31 +79,25 @@ CSG::operator= (const CSG& rhs)
 bool
 CSG::union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 {
-	printf("UNION HIT\n");
 	double amin, amax, bmin, bmax;
 	ShadeRec srA = ShadeRec(sr.w);
 	ShadeRec srB = ShadeRec(sr.w);
 	a->hit(ray, amin,amax,srA);
 	b->hit(ray, bmin,bmax,srB);
 
-	if ((bmin< amin ) and (bmax> amin ) )
+	if ((bmin< amin ) && (bmax> amin ) )
 	{
 		tmin = amin;
 		sr.local_hit_point = srA.local_hit_point;
 		sr.normal = srA.normal;
-		sr.material_ptr = srA.material_ptr;
-		printf("GO HIT A\n");
-
 		return true;
 	}
-	else if ((amin< bmin ) and (amax> bmin ) )
+	else if ((amin< bmin ) && (amax> bmin ) )
 	{
 		tmin = bmin;
 		sr.local_hit_point = srB.local_hit_point;
 		sr.normal = srB.normal;
 		sr.material_ptr = srB.material_ptr;
-		printf("GO HIT B\n");
-
 		return true;
 	}
 

@@ -18,7 +18,7 @@ int main() {
 	cout << "Ray Tracer" << endl;
 	World w = World();
 	//w.render_scene();
-	Point3D center = Point3D(50,0,-300);
+	Point3D center = Point3D(50,0,-500);
 	Pinhole p = Pinhole();
 	Point3D camPos = Point3D(0,0,0);
 	p.set_sample_rate(1);
