@@ -8,9 +8,8 @@
 // This file contains the definition of the class CSG
 
 #include "CSG.h"
+#include "../Utilities/Constants.h"
 #include "math.h"
-
-const double CSG::kEpsilon = 0.001;
 
 // ---------------------------------------------------------------- default constructor
 
@@ -71,7 +70,26 @@ CSG::operator= (const CSG& rhs)
 
 // ---------------------------------------------------------------- destructor
 
-CSG::~CSG(void) {}
+//CSG::~CSG(void) {}
+//TODO Create proper destructor
+
+bool
+CSG::union_hit(const Ray& ray, double& tmin, ShadeRec& sr) const
+{
+	return false;
+}
+
+bool
+CSG::sub_hit(const Ray& ray, double& tmin, ShadeRec& sr) const
+{
+	return false;
+}
+
+bool
+CSG::intersect_hit(const Ray& ray, double& tmin, ShadeRec& sr) const
+{
+	return false;
+}
 
 
 //---------------------------------------------------------------- hit
@@ -80,10 +98,13 @@ bool
 CSG::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 	switch (op) {
 	case UNION:
+		return union_hit(ray,tmin,sr);
 		break;
 	case SUBTRACTION:
+		return sub_hit(ray,tmin,sr);
 		break;
 	case INTERSECTION:
+		return intersect_hit(ray, tmin, sr);
 		break;
 	}
 	return (false);
