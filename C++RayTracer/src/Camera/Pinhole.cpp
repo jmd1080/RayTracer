@@ -6,14 +6,14 @@
 #include "../Tracers/RayCast.h"
 
 
-
 // ----------------------------------------------------------------------------- default constructor
 
 Pinhole::Pinhole(void)
 	:	d(500),
 	 	camPos(Point3D(0)),
 	 	viewDir(Vector3D(0,0,-1)),
-		rollAngle(0)
+		rollAngle(0),
+		samples(1)
 {}
 
 
@@ -37,27 +37,40 @@ Pinhole::render_scene(const World& w)
 			rollAngle += PI;
 		}
 
-		//Vector3D up = Vector3D(0,1,0);
-		//Vector3D right = Vector3D(1,0,0);
-
 		for (int r = 0; r < vp.vres; r++) // row
 			for (int c = 0; c < vp.hres; c++) { // column
-				//Create ray for pixel
-				Vector3D rayDir = viewDir * d;
+				RGBColor pixel_col = RGBColor();
+				// Anti-aliasing code
+				//printf("SAMPLE\n");
+				for (int i = 0; i < samples; i++)
+					for (int j = 0; j < samples; j++)
+					{
+						//Create ray for pixel
+						Vector3D rayDir = viewDir * d;
+						RGBColor sample_col = RGBColor();
+						//Get position on view plane
+						rayDir+= (r + (float)(i)/samples - 0.5 - vp.vres/2)*up;
+						//printf("%f\n",(float)(j)/SAMPLES);
 
-				//Get position on view plane
-				rayDir+= (r - vp.vres/2)*up;
+						rayDir+= (c + (float)(j)/samples - 0.5 - vp.hres/2)*right;
 
-				rayDir+= (c - vp.hres/2)*right;
+						rayDir.normalize();
+						//printf("%f,%f,%f\n",rayDir.x,rayDir.y,rayDir.z);
 
-				rayDir.normalize();
+						ray.d = rayDir;
 
-				ray.d = rayDir;
+						//Get the intersection for the ray
+						sample_col = w.tracer_ptr->trace_ray(ray);
 
-				//Get the intersection for the ray
-				pixel_color = w.tracer_ptr->trace_ray(ray);
+						pixel_col += sample_col;
+					}
 
-				w.draw_pixel(pixel_color,c,r);
+				pixel_col = pixel_col / (samples*samples);
+
+				w.draw_pixel(pixel_col,c,r);
+
+
+
 			}
 
 		w.display_image();

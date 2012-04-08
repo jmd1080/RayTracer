@@ -47,11 +47,18 @@ World::World(void)
 	Material *m2 = new Material();
 	Material *m3 = new Material();
 	Material *m4 = new Material();
+	Material *m5 = new Material();
+
+	m5->set_color(RGBColor(0.5,0,0.5));
+	m5->set_kr(0.5);
+
 	m1->set_color(RGBColor(red));//1,0.01,0.01));
+	//m1->set_kr(0.1);
 	//m2->set_opacity(0);
 	m2->set_color(white);
 	m4->set_color(white);
-	m2->set_kr(0.1);
+	m4->set_kr(0.5);
+	m2->set_kr(0.5);
 	m3->set_color(white);//RGBColor(0.7,0.01,0.7));
 	//background_color= RGBColor(1,1,0.01);
 
@@ -71,7 +78,7 @@ World::World(void)
 	s1->set_material_ptr(m1);
 	Sphere *s2 = new Sphere(Point3D(50,50,-200),50);
 	s2->set_material(2);
-	s2->set_material_ptr(m1);
+	s2->set_material_ptr(m5);
 	Sphere *s3 = new Sphere(Point3D(0,0,-300),50);
 	s3->set_material(2);
 	s3->set_material_ptr(m2);

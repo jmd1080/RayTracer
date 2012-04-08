@@ -10,7 +10,7 @@ const double 	PI_ON_180 	= 0.0174532925199432957;
 const double 	invPI 		= 0.3183098861837906715;
 const double 	invTWO_PI 	= 0.1591549430918953358;
 
-const int		MAX_DEPTH	= 2;
+const int		MAX_DEPTH	= 5;
 
 const double 	kEpsilon 	= 0.0001; 
 const double	kHugeValue	= 1.0E10;

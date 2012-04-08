@@ -33,12 +33,16 @@ class Pinhole {
 		void
 		render_scene(const World& w);
 
+		void
+		set_sample_rate(int s);
+
 	private:
 
-		float	 d;         // view plane distance
-		Point3D  camPos;    // the position of the pin-hole camera
-		Vector3D viewDir;   // the direction the camera is pointing
-		float	 rollAngle; // the angle the camera is rotated at;
+		float		d;			// view plane distance
+		Point3D		camPos;		// the position of the pin-hole camera
+		Vector3D	viewDir;	// the direction the camera is pointing
+		float		rollAngle;	// the angle the camera is rotated at;
+		float		samples;	// square root of number of samples per pixel (ensuring samples is always a whole number)
 };
 
 inline void
@@ -49,6 +53,11 @@ Pinhole::set_view_distance(float _d) {
 inline void
 Pinhole::set_camera_position(Point3D pos) {
 	camPos = pos;
+}
+
+inline void
+Pinhole::set_sample_rate(int s) {
+	samples = (float)s;
 }
 
 inline void
