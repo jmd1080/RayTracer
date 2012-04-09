@@ -75,6 +75,8 @@ Sphere::hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const {
 	double 		c 		= temp * temp - radius * radius;
 	double 		disc	= b * b - 4.0 * a * c;
 
+	sr.material_ptr = material_ptr;
+
 	if (disc < 0.0)
 		return(false);
 	else {
@@ -95,13 +97,13 @@ Sphere::hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const {
 			tmax = t;
 			sr.normal_max   = (temp + t * ray.d) / radius;
 			sr.max_hit_point = ray.o + t * ray.d;
+			//sr.material_ptr = material_ptr;
 			return true;
 		}
 		t = (-b + e) / denom;    // larger root
 
 		if (t > kEpsilon) {
 			tmin = t;
-
 			sr.normal   = (temp + t * ray.d) / radius;
 			sr.local_hit_point = ray.o + t * ray.d;
 			return true;

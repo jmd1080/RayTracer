@@ -20,10 +20,11 @@ int main() {
 	//w.render_scene();
 	Point3D center = Point3D(50,0,-500);
 	Pinhole p = Pinhole();
-	Point3D camPos = Point3D(0,0,0);
+	Point3D camPos = Point3D(0,0,400);
 	p.set_sample_rate(1);
 	p.set_camera_position(camPos);
 	p.set_camera_dir(center - camPos);
+	//p.set_camera_dir(Vector3D(0,0,1));
 	p.render_scene(w);
 	printf("Rendering complete\n");
 	/*

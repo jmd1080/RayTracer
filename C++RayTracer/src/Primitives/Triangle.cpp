@@ -91,6 +91,8 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	t = d;
 	s.normal = n;
 	s.local_hit_point = ray.o + t * ray.d;
+	s.material_ptr = material_ptr;
+
 
 	return true;
 }

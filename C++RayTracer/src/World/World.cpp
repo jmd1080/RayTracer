@@ -53,14 +53,14 @@ World::World(void)
 	m5->set_color(RGBColor(0.5,0,0.5));
 	m5->set_kr(0.5);
 
-	m1->set_color(RGBColor(red));//1,0.01,0.01));
+	m1->set_color(red);//1,0.01,0.01));
 	//m1->set_kr(0.1);
 	//m2->set_opacity(0);
 	m2->set_color(white);
 	m4->set_color(white);
 	m4->set_kr(0.5);
 	m2->set_kr(0.5);
-	m3->set_color(white);//RGBColor(0.7,0.01,0.7));
+	m3->set_color(RGBColor(0.7,0.01,0.7));
 	//background_color= RGBColor(1,1,0.01);
 
 	Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.3,0.3,0.3));
@@ -75,42 +75,42 @@ World::World(void)
 	printf("Making sample world\n");
 
 	Sphere *s1 = new Sphere(Point3D(-50,-50,-100),50);
-	s1->set_material_ptr(m1);
+	s1->set_material_ptr(m2);
 	Sphere *s2 = new Sphere(Point3D(50,50,-200),50);
-	s2->set_material(2);
-	s2->set_material_ptr(m5);
+	s2->set_material_ptr(m2);
 	Sphere *s3 = new Sphere(Point3D(0,0,-300),50);
-	s3->set_material(2);
-	s3->set_material_ptr(m2);
+	s3->set_material_ptr(m3);
 
 	Plane *p1 = new Plane(Normal(-1,0,0), Point3D(200,0,0));
-	p1->set_material_ptr(m4);
+	p1->set_material_ptr(m1);
 
 	Triangle *t1 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-200),Point3D(0,0,-300));
 	t1->set_material_ptr(m3);
 
 	// CSG ************************
-
+/*
 	Sphere *CSG1 = new Sphere(Point3D(50,125,-500),50);
 	CSG1->set_material_ptr(m1);
 	Sphere *CSG2 = new Sphere(Point3D(50,75,-500),50);
 	CSG2->set_material_ptr(m3);
 
 	m1->set_kr(0);
-	CSG *C = new CSG(CSG1,CSG2,INTERSECTION);
+	CSG *C = new CSG(CSG1,CSG2,UNION);
 	C->set_material_ptr(m1);
-	add_object(C);
+	//add_object(C);
 
 	printf("MADE 1!\n");
 
-	Sphere *CSG3 = new Sphere(Point3D(50,-100,-500),50);
+	Sphere *CSG3 = new Sphere(Point3D(50,-25,-500),50);
 	CSG3->set_material_ptr(m1);
-	Sphere *CSG4 = new Sphere(Point3D(50,-150,-500),50);
+	Sphere *CSG4 = new Sphere(Point3D(50,30,-500),50);
 	CSG4->set_material_ptr(m3);
 
-	CSG *C2 = new CSG(CSG3,CSG4,UNION);
+	m3->set_kr(0.5);
+
+	CSG *C2 = new CSG(CSG3,CSG4,INTERSECTION);
 	C2->set_material_ptr(m3);
-	add_object(C2);
+	//add_object(C2);
 
 	printf("MADE 2!\n");
 
@@ -119,11 +119,13 @@ World::World(void)
 	//add_object(CSG4);
 
 	// ****************************
+*/
 
 	add_object(s1);
-	/*add_object(s2);
+	add_object(s2);
+	add_object(s3);
+
 	add_object(t1);
-	add_object(s3);*/
 	add_object(p1);
 }
 
@@ -210,12 +212,7 @@ World::render_scene(void) const {
 			//ShadeRec sr = hit_objects(ray);
 
 			pixel_color = tracer_ptr->trace_ray(ray);
-			/*CvScalar s = cvGet2D(img,c,r);
-						s.val[0] = pixel_color.b*255;
-						s.val[1] = pixel_color.g*255;
-						s.val[2] = pixel_color.r*255;
 
-						cvSet2D(img,c,r,s);*/
 			draw_pixel(pixel_color, c, r);
 		}	
 	}
