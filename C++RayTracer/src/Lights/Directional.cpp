@@ -45,7 +45,10 @@ Directional::operator= (const Directional& rhs)
 RGBColor
 Directional::get_intensity(ShadeRec& sr) const
 {
+	//printf("GLOW\n");
+
 	RGBColor result = cl * (sr.normal * d);
+	//printf("GLOW12\n");
 
 	// If self occlusion return 0
 	if (cl.r < 0 || cl.g < 0 || cl.b < 0)

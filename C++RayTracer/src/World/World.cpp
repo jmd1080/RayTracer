@@ -61,12 +61,13 @@ World::World(void)
 	m4->set_kr(0.5);
 	m2->set_kr(0.5);
 	m3->set_color(RGBColor(0.7,0.01,0.7));
-	//background_color= RGBColor(1,1,0.01);
+	m3->set_kr(0.3);
+	// background_color= RGBColor(1,1,0.01);
 
-	Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.3,0.3,0.3));
+	Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.5,0.5,0.5));
 	add_light(l2);
 	Light *l3 = new Directional(Vector3D(-1,1,-1),RGBColor(0.5,0.5,0.5));
-	//	add_light(l3);
+	//add_light(l3);
 
 	Light *l1 = new Point(Point3D(-200,0,0),RGBColor(0.5,0.5,0.5));
 
@@ -77,7 +78,7 @@ World::World(void)
 	Sphere *s1 = new Sphere(Point3D(-50,-50,-100),50);
 	s1->set_material_ptr(m2);
 	Sphere *s2 = new Sphere(Point3D(50,50,-200),50);
-	s2->set_material_ptr(m2);
+	s2->set_material_ptr(m1);
 	Sphere *s3 = new Sphere(Point3D(0,0,-300),50);
 	s3->set_material_ptr(m3);
 
@@ -121,11 +122,12 @@ World::World(void)
 	// ****************************
 */
 
-	add_object(s1);
-	add_object(s2);
 	add_object(s3);
+	add_object(s2);
+	add_object(s1);
 
 	add_object(t1);
+
 	add_object(p1);
 }
 
@@ -147,6 +149,7 @@ World::hit_objects(const Ray& ray) {
 
 	// ShadeRec
 	ShadeRec	sr(*this);
+	Material 	*m;
 	double		t;
 	Normal normal;
 	Point3D local_hit_point;
@@ -161,8 +164,8 @@ World::hit_objects(const Ray& ray) {
 			if (t < tmin) {
 				sr.hit_an_object	= true;
 				tmin 				= t;
-				sr.material = objects[j]->get_material();
-				sr.material_ptr     = objects[j]->get_material_ptr(); // TODO fix issues with material
+				m = sr.material_ptr;
+				//sr.material_ptr     = objects[j]->get_material_ptr(); // TODO fix issues with material
 				sr.hit_point 		= ray.o + t * ray.d;
 				normal 				= sr.normal;
 				local_hit_point	 	= sr.local_hit_point;
@@ -170,6 +173,7 @@ World::hit_objects(const Ray& ray) {
 		}
 
 	if(sr.hit_an_object) {
+		sr.material_ptr = m;
 		sr.t = tmin;
 		sr.normal = normal;
 		sr.local_hit_point = local_hit_point;

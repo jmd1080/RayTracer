@@ -69,6 +69,8 @@ Plane::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	t = d;
 	s.normal = n;
 	s.local_hit_point = ray.o + d * ray.d;
-	//s.material_ptr = material_ptr;
+	s.normal_max   = -1*n;
+	s.max_hit_point = s.local_hit_point;
+	s.material_ptr = material_ptr;
 	return true;
 }

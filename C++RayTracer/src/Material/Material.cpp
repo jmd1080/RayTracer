@@ -57,9 +57,9 @@ Material::shade(ShadeRec& sr)
 	RGBColor I = sr.w.ambient*kl;
 	// Get contribution from all lights
 	int num_lights = sr.w.lights.size();
-
 	for (int j = 0; j < num_lights; j++) {
 		// Lambertian
+
 		RGBColor Il = kl*sr.w.lights[j]->get_intensity(sr);
 
 		// Specular
