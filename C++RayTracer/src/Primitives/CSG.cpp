@@ -101,6 +101,7 @@ CSG::union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 		{
 			sr.normal = srB.normal;
 			sr.hit_point = srB.hit_point;
+			sr.material_ptr = srB.material_ptr;
 			tmin = bmin;
 			sr.t = bmin;
 		}
@@ -108,6 +109,7 @@ CSG::union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 		{
 			sr.normal = srA.normal;
 			sr.hit_point = srA.hit_point;
+			sr.material_ptr = srA.material_ptr;
 			tmin = amin;
 			sr.t = amin;
 		}
@@ -150,6 +152,7 @@ CSG::intersect_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) con
 			tmin = amin;
 			sr.local_hit_point = srA.local_hit_point;
 			sr.normal = srA.normal;
+			sr.material_ptr = srA.material_ptr;
 			return true;
 		}
 		if ((amin< bmin ) && (amax> bmin ) )
