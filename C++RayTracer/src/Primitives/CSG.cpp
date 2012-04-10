@@ -156,6 +156,7 @@ CSG::sub_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 	{
 		sr.normal = srA.normal;
 		sr.hit_point = srA.hit_point;
+		sr.local_hit_point = srA.local_hit_point;
 		sr.material_ptr = srA.material_ptr;
 		tmin = amin;
 		sr.t = amin;
@@ -167,6 +168,7 @@ CSG::sub_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 	{
 		sr.normal = srB.normal_max;
 		sr.hit_point = srB.max_hit_point;
+		sr.local_hit_point = srB.local_hit_point;
 		sr.material_ptr = srB.material_ptr;
 		tmin = bmax;
 		return true;
@@ -189,6 +191,7 @@ CSG::intersect_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) con
 			tmin = amin;
 			sr.local_hit_point = srA.local_hit_point;
 			sr.normal = srA.normal;
+			sr.hit_point = srA.hit_point;
 			sr.material_ptr = srA.material_ptr;
 			return true;
 		}
@@ -196,6 +199,7 @@ CSG::intersect_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) con
 		{
 			tmin = bmin;
 			sr.local_hit_point = srB.local_hit_point;
+			sr.hit_point = srB.hit_point;
 			sr.normal = srB.normal;
 			sr.material_ptr = srB.material_ptr;
 			return true;
