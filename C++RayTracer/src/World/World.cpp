@@ -67,7 +67,7 @@ World::World(void)
 	Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.5,0.5,0.5));
 	add_light(l2);
 	Light *l3 = new Directional(Vector3D(-1,1,-1),RGBColor(0.5,0.5,0.5));
-	//add_light(l3);
+	add_light(l3);
 
 	Light *l1 = new Point(Point3D(-200,0,0),RGBColor(0.5,0.5,0.5));
 
@@ -80,7 +80,7 @@ World::World(void)
 	Sphere *s2 = new Sphere(Point3D(50,50,-200),50);
 	s2->set_material_ptr(m1);
 	Sphere *s3 = new Sphere(Point3D(0,0,-300),50);
-	s3->set_material_ptr(m3);
+	s3->set_material_ptr(m4);
 
 	Plane *p1 = new Plane(Normal(-1,0,0), Point3D(200,0,0));
 	p1->set_material_ptr(m1);
@@ -88,13 +88,17 @@ World::World(void)
 	Triangle *t1 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-200),Point3D(0,0,-300));
 	t1->set_material_ptr(m3);
 
+	Triangle *t2 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-150),Point3D(0,0,-150));
+	t2->set_material_ptr(m3);
+
 	// CSG ************************
 
 	Sphere *CSG1 = new Sphere(Point3D(50,125,-500),50);
 	CSG1->set_material_ptr(m1);
 	Sphere *CSG2 = new Sphere(Point3D(50,75,-500),50);
 	CSG2->set_material_ptr(m3);
-
+	//add_object(CSG1);
+	//add_object(CSG2);
 	m1->set_kr(0);
 	CSG *C = new CSG(CSG1,CSG2,UNION);
 	add_object(C);
