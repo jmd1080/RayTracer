@@ -84,8 +84,6 @@ Pinhole::render_scene(const World& w)
 
 
 			}
-			if (r % 10 == 0)
-				w.display_image();
 		}
 
 		w.display_image();

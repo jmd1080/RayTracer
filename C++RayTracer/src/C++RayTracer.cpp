@@ -20,7 +20,8 @@ int main() {
 	//w.render_scene();
 	Point3D center = Point3D(50,0,-500);
 	Pinhole p = Pinhole();
-	Point3D camPos = Point3D(0,0,400);
+	Point3D camPos = Point3D(0,0,-900);
+	p.set_camera_roll(PI);
 	p.set_sample_rate(1);
 	p.set_camera_position(camPos);
 	p.set_camera_dir(center - camPos);

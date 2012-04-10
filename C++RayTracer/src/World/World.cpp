@@ -97,19 +97,18 @@ World::World(void)
 
 	m1->set_kr(0);
 	CSG *C = new CSG(CSG1,CSG2,UNION);
-	C->set_material_ptr(m1);
 	add_object(C);
 
 	printf("MADE 1!\n");
 
-	Sphere *CSG3 = new Sphere(Point3D(50,-0,-500),50);
+	Sphere *CSG3 = new Sphere(Point3D(0,0,-100),50);
 	CSG3->set_material_ptr(m1);
-	Sphere *CSG4 = new Sphere(Point3D(50,50,-500),50);
+	Sphere *CSG4 = new Sphere(Point3D(0,25,-75),80);
 	CSG4->set_material_ptr(m3);
 
 	m3->set_kr(0.5);
 
-	CSG *C2 = new CSG(CSG3,CSG4,INTERSECTION);
+	CSG *C2 = new CSG(CSG3,CSG4,SUBTRACTION);
 	C2->set_material_ptr(m3);
 	add_object(C2);
 
@@ -160,7 +159,7 @@ World::hit_objects(const Ray& ray) {
 
 	for (int j = 0; j < num_objects; j++)
 		if (objects[j]->hit(ray, t, tmax, sr)) {
-			sr.inv_opacity *= (1-objects[j]->get_material_ptr()->get_opacity());
+			sr.inv_opacity *= (1-sr.material_ptr->get_opacity());
 			if (t < tmin) {
 				sr.hit_an_object	= true;
 				tmin 				= t;

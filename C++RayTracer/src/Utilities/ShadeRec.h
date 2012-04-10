@@ -21,7 +21,6 @@ class ShadeRec {
 	
 		bool				hit_an_object;		// Did the ray hit an object?
 		Material* 			material_ptr;		// Pointer to the nearest object's material
-		int 				material;
 		Point3D 			hit_point;			// World coordinates of intersection
 		Point3D				local_hit_point;	// World coordinates of hit point on generic object (used for texture transformations)
 		Point3D				max_hit_point;		// World coordinates of hit point at tmax (used for CSG)

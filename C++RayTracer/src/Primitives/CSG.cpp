@@ -116,11 +116,13 @@ CSG::union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 		if (amax > bmax)
 		{
 			tmax = amax;
+			sr.max_hit_point = srA.max_hit_point;
 			sr.normal_max = srA.normal_max;
 		}
 		else
 		{
 			tmax = bmax;
+			sr.max_hit_point = srB.max_hit_point;
 			sr.normal_max = srB.normal_max;
 		}
 		return true;
@@ -132,8 +134,40 @@ CSG::union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 bool
 CSG::sub_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 {
+	double amin, amax, bmin, bmax;
+	ShadeRec srA = ShadeRec(sr.w);
+	ShadeRec srB = ShadeRec(sr.w);
+	bool ahit = a->hit(ray, amin,amax,srA);
+	bool bhit = b->hit(ray, bmin,bmax,srB);
 
-	return false;
+	if (!ahit)
+	{
+		return false;
+	}
+
+	if (!bhit)
+	{
+		bmin = amin + 1;
+	}
+	if (amin < bmin)
+	{
+		sr.normal = srA.normal;
+		sr.hit_point = srA.hit_point;
+		sr.material_ptr = srA.material_ptr;
+		tmin = amin;
+		sr.t = amin;
+		return true;
+	}
+	if (amax < bmax)
+		return false;
+	else
+	{
+		sr.normal = srB.normal_max;
+		sr.hit_point = srB.max_hit_point;
+		sr.material_ptr = srB.material_ptr;
+		tmin = bmax;
+		return true;
+	}
 }
 
 bool
