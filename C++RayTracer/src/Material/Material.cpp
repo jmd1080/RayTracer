@@ -68,8 +68,8 @@ Material::shade(ShadeRec& sr)
 		if (Il.r < 0 || Il.g < 0 || Il.b < 0)
 			Il = RGBColor(0);
 
-		//if (Is.r < 0 || Is.g < 0 || Is.b < 0)
-			//Is = RGBColor(0);
+		if (Is.r < 0 || Is.g < 0 || Is.b < 0)
+			Is = RGBColor(0);
 
 		//Is = RGBColor(0);
 		//Il = RGBColor(0);
