@@ -152,7 +152,7 @@ CSG::sub_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 	{
 		bmin = amin + 1;
 	}
-	if (amin < bmin)
+	if (amin < bmin || amin > bmax)
 	{
 		sr.normal = srA.normal;
 		sr.hit_point = srA.hit_point;

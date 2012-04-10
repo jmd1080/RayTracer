@@ -107,7 +107,7 @@ World::World(void)
 
 	Sphere *CSG3 = new Sphere(Point3D(0,0,-100),50);
 	CSG3->set_material_ptr(m1);
-	Sphere *CSG4 = new Sphere(Point3D(0,25,-75),80);
+	Sphere *CSG4 = new Sphere(Point3D(0,0,-150),50);
 	CSG4->set_material_ptr(m3);
 
 	m3->set_kr(0.5);
