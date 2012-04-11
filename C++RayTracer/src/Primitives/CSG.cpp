@@ -152,6 +152,18 @@ CSG::sub_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 	{
 		bmin = amin + 1;
 	}
+	if (amax > bmax)
+	{
+		tmax = amax;
+		sr.max_hit_point = srA.max_hit_point;
+		sr.normal_max = srA.normal_max;
+	}
+	else
+	{
+		tmax = bmax;
+		sr.max_hit_point = srB.max_hit_point;
+		sr.normal_max = srB.normal_max;
+	}
 	if (amin < bmin || amin > bmax)
 	{
 		sr.normal = srA.normal;
@@ -186,6 +198,18 @@ CSG::intersect_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) con
 	bool bhit = b->hit(ray, bmin,bmax,srB);
 	if(ahit || bhit)
 	{
+		if (bmax < amax)
+		{
+			tmax = bmax;
+			sr.max_hit_point = srB.max_hit_point;
+			sr.normal_max = srB.normal_max;
+		}
+		else
+		{
+			tmax = amax;
+			sr.max_hit_point = srA.max_hit_point;
+			sr.normal_max = srA.normal_max;
+		}
 		if ((bmin< amin ) && (bmax> amin ) )
 		{
 			tmin = amin;

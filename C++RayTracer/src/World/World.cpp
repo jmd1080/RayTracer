@@ -64,8 +64,13 @@ World::World(void)
 	m3->set_kr(0.3);
 	// background_color= RGBColor(1,1,0.01);
 
+	Triangle *t4 = new Triangle(Point3D(0,100,-200),Point3D(0,0,-200),Point3D(100,0,-200));
+	t4->set_material_ptr(m2);
+
+	add_object(t4);
+
 	Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.5,0.5,0.5));
-	add_light(l2);
+	//add_light(l2);
 	Light *l3 = new Directional(Vector3D(-1,1,-1),RGBColor(0.5,0.5,0.5));
 	add_light(l3);
 
@@ -117,7 +122,15 @@ World::World(void)
 	add_object(C2);
 
 	printf("MADE 2!\n");
-
+	Sphere *CSG5 = new Sphere(Point3D(50,-125,-500),50);
+	CSG1->set_material_ptr(m1);
+	Plane *CSG6 = new Plane(Normal(-1,-1,0), Point3D(50,-125,-500));
+	CSG2->set_material_ptr(m3);
+	//add_object(CSG1);
+	//add_object(CSG2);
+	m1->set_kr(0);
+	CSG *C3 = new CSG(CSG5,CSG6,INTERSECTION);
+	add_object(C3);
 
 	//add_object(CSG3);
 	//add_object(CSG4);
