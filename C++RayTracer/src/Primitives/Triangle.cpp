@@ -68,14 +68,14 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 		  e1 = a.y - b.y, f1 = a.y - c.y, g1 = ray.d.y, h1 = a.y - ray.o.y,
 		  i1 = a.z - b.z, j1 = a.z - c.z, k1 = ray.d.z, l1 = a.z - ray.o.z;
 
-	float div = 	1/(a1*(f1*k1 + g1*j1) + b1*(g1*i1 - e1*k1) + c1*(e1*j1 - f1*i1));
+	float div = 1/(a1*(f1*k1 + g1*j1) + b1*(g1*i1 - e1*k1) + c1*(e1*j1 - f1*i1));
 
-	float beta = 	(d1 *(f1*k1 - g1*j1) + b1*(g1*l1 - h1*k1) + c1*(h1*j1 - f1*l1)) * div;
+	float beta = (d1 *(f1*k1 - g1*j1) + b1*(g1*l1 - h1*k1) + c1*(h1*j1 - f1*l1)) * div;
 
 	if (beta < kEpsilon)
 		return false;
 
-	float gamma = 	(a1*(h1*k1 - g1*l1) + d1*(g1*i1 - e1*k1) + c1*(e1*l1 - h1*i1)) * div;
+	float gamma = (a1*(h1*k1 - g1*l1) + d1*(g1*i1 - e1*k1) + c1*(e1*l1 - h1*i1)) * div;
 
 	if (gamma < kEpsilon)
 		return false;
@@ -83,7 +83,7 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	if (beta + gamma > 1 - kEpsilon)
 		return false;
 
-	float d = 		(a1*(f1*l1 - h1*j1) + b1*(h1*i1 - e1*l1) + d1*(e1*j1 - f1*i1)) * div;
+	float d = (a1*(f1*l1 - h1*j1) + b1*(h1*i1 - e1*l1) + d1*(e1*j1 - f1*i1)) * div;
 
 	if (d < kEpsilon)
 		return false;

@@ -5,7 +5,7 @@
 Material::Material(void):
 color(RGBColor(0)),
 kl(0.7),
-ks(0.000001),
+ks(0.0000003),
 opacity(1),
 kr(0)
 {}

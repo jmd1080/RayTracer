@@ -31,7 +31,7 @@ class Pinhole {
 		set_camera_dir(const Vector3D dir);
 
 		void
-		render_scene(const World& w);
+		render_scene(const World *w);
 
 		void
 		set_sample_rate(int s);

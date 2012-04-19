@@ -1,3 +1,18 @@
 {
-    "How": "Gary"
+    	"Sphere":
+	{
+		"x":"0",
+		"y":"0",
+		"z":"0",
+		"rad":"30"
+	}
+	"Plane":
+	{
+		"normx":"1",
+		"normy":"1",
+		"normz":"1"
+		"pointx":"0",
+		"pointy":"0",
+		"pointz":"0"
+	}
 }

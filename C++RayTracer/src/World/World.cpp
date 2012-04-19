@@ -40,9 +40,8 @@ World::World(void)
    	ambient(RGBColor(0.1)),
    	vp()
 {
-	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
 
-	printf("Making sample world materials\n");
+	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
 
 	Material *m1 = new Material();
 	Material *m2 = new Material();
@@ -56,16 +55,16 @@ World::World(void)
 	m1->set_color(red);//1,0.01,0.01));
 	//m1->set_kr(0.1);
 	//m2->set_opacity(0);
-	m2->set_color(white);
+	m2->set_color(black);
 	m4->set_color(white);
 	m4->set_kr(0.5);
-	m2->set_kr(0.5);
+	m2->set_kr(0.9);
 	m3->set_color(RGBColor(0.7,0.01,0.7));
 	m3->set_kr(0.3);
 	// background_color= RGBColor(1,1,0.01);
 
 	Triangle *t4 = new Triangle(Point3D(0,100,-200),Point3D(0,0,-200),Point3D(100,0,-200));
-	t4->set_material_ptr(m2);
+	t4->set_material_ptr(m1);
 
 	add_object(t4);
 
@@ -78,8 +77,6 @@ World::World(void)
 
 	//add_light(l1);
 
-	printf("Making sample world\n");
-
 	Sphere *s1 = new Sphere(Point3D(-50,-50,-100),50);
 	s1->set_material_ptr(m2);
 	Sphere *s2 = new Sphere(Point3D(50,50,-200),50);
@@ -88,7 +85,7 @@ World::World(void)
 	s3->set_material_ptr(m4);
 
 	Plane *p1 = new Plane(Normal(-1,0,0), Point3D(200,0,0));
-	p1->set_material_ptr(m1);
+	p1->set_material_ptr(m2);
 
 	Triangle *t1 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-200),Point3D(0,0,-300));
 	t1->set_material_ptr(m3);
@@ -108,8 +105,6 @@ World::World(void)
 	CSG *C = new CSG(CSG1,CSG2,UNION);
 	add_object(C);
 
-	printf("MADE 1!\n");
-
 	Sphere *CSG3 = new Sphere(Point3D(0,0,-100),50);
 	CSG3->set_material_ptr(m1);
 	Sphere *CSG4 = new Sphere(Point3D(0,0,-150),50);
@@ -121,7 +116,6 @@ World::World(void)
 	C2->set_material_ptr(m3);
 	add_object(C2);
 
-	printf("MADE 2!\n");
 	Sphere *CSG5 = new Sphere(Point3D(50,-125,-500),50);
 	CSG1->set_material_ptr(m1);
 	Plane *CSG6 = new Plane(Normal(-1,-1,0), Point3D(50,-125,-500));
@@ -152,11 +146,9 @@ World::World(void)
 //------------------------------------------------------------------ destructor
 
 World::~World(void) {	
-	delete_objects();	
+	delete_objects();
 	delete_lights();
 }
-
-
 
 // ----------------------------------------------------------------------------- hit_objects
 
