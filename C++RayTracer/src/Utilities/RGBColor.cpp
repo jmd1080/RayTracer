@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "RGBColor.h"
+#include <stdio.h>
 
 // -------------------------------------------------------- default constructor
 
@@ -15,21 +16,27 @@ RGBColor::RGBColor(void)
 
 RGBColor::RGBColor(float c)
 : r(c), g(c), b(c)
-{}
+{
+	cap();
+}
 
 
 // -------------------------------------------------------- constructor
 
 RGBColor::RGBColor(float _r, float _g, float _b)	
 : r(_r), g(_g), b(_b)
-{}
+{
+	cap();
+}
 
 
 // -------------------------------------------------------- copy constructor
 
 RGBColor::RGBColor(const RGBColor& c)
 : r(c.r), g(c.g), b(c.b)
-{} 				 
+{
+	cap();
+}
 
 
 // -------------------------------------------------------- destructor
@@ -52,12 +59,12 @@ RGBColor::operator= (const RGBColor& rhs) {
 
 void
 RGBColor::cap() {
-	if (r > 1)
-		r = 1;
-	if (g > 1)
-		g = 1;
-	if (b > 1)
-		b = 1;
+	if (r > 1.0)
+		r = 1.0;
+	if (g > 1.0)
+		g = 1.0;
+	if (b > 1.0)
+		b = 1.0;
 }
 
 

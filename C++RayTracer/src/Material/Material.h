@@ -5,6 +5,12 @@
 #include "../Utilities/RGBColor.h"
 #include "../Utilities/ShadeRec.h"
 
+const double	DEFAULT_KR	=	0.0;
+const double	DEFAULT_KS	=	0.0000003;
+const double	DEFAULT_KL	=	0.7;
+
+
+
 class Material {
 	public:
 

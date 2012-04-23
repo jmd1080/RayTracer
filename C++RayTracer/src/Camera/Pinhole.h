@@ -36,6 +36,12 @@ class Pinhole {
 		void
 		set_sample_rate(int s);
 
+		void
+		set_vres(int v);
+
+		void
+		set_hres(int h);
+
 	private:
 
 		float		d;			// view plane distance
@@ -43,6 +49,12 @@ class Pinhole {
 		Vector3D	viewDir;	// the direction the camera is pointing
 		float		rollAngle;	// the angle the camera is rotated at;
 		float		samples;	// square root of number of samples per pixel (ensuring samples is always a whole number)
+		int			vres;
+		int			hres;
+		IplImage*	img;		//The output image of the camera
+
+		void
+		draw_pixel(RGBColor pixel_color, int c, int r) const;
 };
 
 inline void
@@ -69,6 +81,16 @@ inline void
 Pinhole::set_camera_dir(Vector3D dir) {
 	viewDir = dir;
 	viewDir.normalize();
+}
+
+inline void
+Pinhole::set_vres(int v) {
+	vres = v;
+}
+
+inline void
+Pinhole::set_hres(int h) {
+	hres = h;
 }
 
 #endif

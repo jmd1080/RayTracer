@@ -5,6 +5,8 @@
 #include <math.h>
 #include <time.h>
 #include "../Tracers/RayCast.h"
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 
 // ----------------------------------------------------------------------------- default constructor
 
@@ -13,15 +15,33 @@ Pinhole::Pinhole(void)
 	 	camPos(Point3D(0)),
 	 	viewDir(Vector3D(0,0,-1)),
 		rollAngle(0),
-		samples(1)
+		samples(1),
+		hres(0),
+		vres(0)
 {}
+
+void
+Pinhole::draw_pixel(RGBColor pixel_color, int c, int r) const
+{
+	if (img == NULL)
+		return;
+	if (c >= img->height || r >= img->width)
+		return;
+	CvScalar s = cvGet2D(img,c,r);
+	s.val[0] = pixel_color.b*255;
+	s.val[1] = pixel_color.g*255;
+	s.val[2] = pixel_color.r*255;
+
+	cvSet2D(img,c,r,s);
+
+}
 
 void
 Pinhole::render_scene(const World *w)
 {
+		img = cvCreateImage(cvSize(hres,vres), 8, 3);
 		Ray	ray;
 		ray.o = camPos;
-		ViewPlane vp(w->vp);
 		RGBColor pixel_color;
 
 		Vector3D up1 = Vector3D(sin(rollAngle),cos(rollAngle),0);
@@ -35,9 +55,9 @@ Pinhole::render_scene(const World *w)
 			rollAngle += PI;
 		}
 
-		for (int r = 0; r < vp.vres; r++) // row
+		for (int r = 0; r < hres; r++) // row
 		{
-			for (int c = 0; c < vp.hres; c++) { // column
+			for (int c = 0; c < vres; c++) { // column
 				RGBColor pixel_col = RGBColor();
 				// Anti-aliasing code
 				for (int i = 0; i < samples; i++)
@@ -47,10 +67,10 @@ Pinhole::render_scene(const World *w)
 						Vector3D rayDir = viewDir * d;
 						RGBColor sample_col = RGBColor();
 						//Get position on view plane
-						rayDir+= (r + (float)(i)/samples - 0.5 - vp.vres/2)*up;
+						rayDir+= (r + (float)(i)/samples - 0.5 - hres/2)*up;
 						//printf("%f\n",(float)(j)/SAMPLES);
 
-						rayDir+= (c + (float)(j)/samples - 0.5 - vp.hres/2)*right;
+						rayDir+= (c + (float)(j)/samples - 0.5 - vres/2)*right;
 
 						rayDir.normalize();
 						//printf("%f,%f,%f\n",rayDir.x,rayDir.y,rayDir.z);
@@ -65,11 +85,11 @@ Pinhole::render_scene(const World *w)
 
 				pixel_col = pixel_col / (samples*samples);
 
-				w->draw_pixel(pixel_col,c,r);
-
-
+				draw_pixel(pixel_col,c,r);
 			}
 		}
 
-		w->display_image();
+		cvShowImage("Image",img);
+		cvSaveImage("out.jpg",img,0);
+		cvWaitKey(0);
 }

@@ -41,7 +41,7 @@ World::World(void)
    	vp()
 {
 
-	img = cvCreateImage(cvSize(vp.vres,vp.hres), 8, 3);
+	img = cvCreateImage(cvSize(vp.hres,vp.vres), 8, 3);
 
 	Material *m1 = new Material();
 	Material *m2 = new Material();
@@ -63,11 +63,6 @@ World::World(void)
 	m3->set_kr(0.3);
 	// background_color= RGBColor(1,1,0.01);
 
-	Triangle *t4 = new Triangle(Point3D(0,100,-200),Point3D(0,0,-200),Point3D(100,0,-200));
-	t4->set_material_ptr(m1);
-
-	add_object(t4);
-
 	Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.5,0.5,0.5));
 	//add_light(l2);
 	Light *l3 = new Directional(Vector3D(-1,1,-1),RGBColor(0.5,0.5,0.5));
@@ -76,6 +71,11 @@ World::World(void)
 	Light *l1 = new Point(Point3D(-200,0,0),RGBColor(0.5,0.5,0.5));
 
 	//add_light(l1);
+
+	/*Triangle *t4 = new Triangle(Point3D(0,100,-200),Point3D(0,0,-200),Point3D(100,0,-200));
+	t4->set_material_ptr(m1);
+
+	add_object(t4);
 
 	Sphere *s1 = new Sphere(Point3D(-50,-50,-100),50);
 	s1->set_material_ptr(m2);
@@ -136,9 +136,9 @@ World::World(void)
 	add_object(s2);
 	add_object(s1);
 
-	add_object(t1);*/
+	add_object(t1);
 
-	add_object(p1);
+	add_object(p1);*/
 }
 
 

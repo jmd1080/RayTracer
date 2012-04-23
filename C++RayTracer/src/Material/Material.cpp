@@ -4,10 +4,10 @@
 
 Material::Material(void):
 color(RGBColor(0)),
-kl(0.7),
-ks(0.0000003),
+kl(DEFAULT_KL),
+ks(DEFAULT_KS),
 opacity(1),
-kr(0)
+kr(DEFAULT_KR)
 {}
 
 Material::Material(const Material& material):
