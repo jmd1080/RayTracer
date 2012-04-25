@@ -19,7 +19,10 @@ class Pinhole {
 		Pinhole();
 
 		void
-		set_view_distance(const float vpd);
+		set_view_distance(const float dist);
+
+		void
+		set_zoom(const float zoom);
 
 		void
 		set_camera_position(const Point3D pos);
@@ -52,14 +55,20 @@ class Pinhole {
 		int			vres;
 		int			hres;
 		IplImage*	img;		//The output image of the camera
+		float		zoom;		//How zoomed in the camera is
 
 		void
 		draw_pixel(RGBColor pixel_color, int c, int r) const;
 };
 
 inline void
-Pinhole::set_view_distance(float _d) {
-	d = _d;
+Pinhole::set_view_distance(float dist) {
+	d = dist;
+}
+
+inline void
+Pinhole::set_zoom(float z) {
+	zoom = 1/z;
 }
 
 inline void

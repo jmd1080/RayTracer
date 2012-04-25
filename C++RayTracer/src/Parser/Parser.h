@@ -49,6 +49,12 @@ class Parser {
 		ParsePlane(json_value *val);
 
 		void
+		ParsePointLight(json_value *val);
+
+		void
+		ParseDirectionalLight(json_value *val);
+
+		void
 		ParseMaterial(json_value *val);
 
 		void

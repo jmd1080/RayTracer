@@ -9,6 +9,7 @@
 #include "../Utilities/Normal.h"
 #include "../Utilities/Constants.h"
 #include "Triangle.h"
+#include <stdio.h>
 
 Triangle::Triangle(void):
 	GeometricObject(),
@@ -39,8 +40,9 @@ Triangle::Triangle(const Triangle& triangle):
 
 void Triangle::update_normal()
 {
-	n = Normal((b - a) * (c - a));
+	n = Normal((b - a) ^ (c - a));
 	n.normalize();
+	printf("NORM:%f,%f,%f\n",n.x, n.y, n.z);
 }
 
 Triangle&
@@ -80,13 +82,13 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	if (gamma < kEpsilon)
 		return false;
 
-	if (beta + gamma > 1 - kEpsilon)
+	if (beta + gamma > 1 + kEpsilon)
 		return false;
 
 	float d = (a1*(f1*l1 - h1*j1) + b1*(h1*i1 - e1*l1) + d1*(e1*j1 - f1*i1)) * div;
 
-	if (d < kEpsilon)
-		return false;
+	//if (d < -kEpsilon)
+		//return false;
 
 	t = d;
 	s.normal = n;

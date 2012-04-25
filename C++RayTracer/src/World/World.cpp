@@ -63,7 +63,7 @@ World::World(void)
 	m3->set_kr(0.3);
 	// background_color= RGBColor(1,1,0.01);
 
-	Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.5,0.5,0.5));
+	/*Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.5,0.5,0.5));
 	//add_light(l2);
 	Light *l3 = new Directional(Vector3D(-1,1,-1),RGBColor(0.5,0.5,0.5));
 	add_light(l3);

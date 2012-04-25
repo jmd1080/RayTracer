@@ -1,40 +1,47 @@
 /*
- * Point.cpp
+ * Spot.cpp
  *
  *  Created on: 7 Apr 2012
  *      Author: James Davies
  */
 
-#include "Point.h"
+#include "Spot.h"
 #include "../World/World.h"
 #include <stdio.h>
+#include <math.h>
 
 // Default constructor
 
-Point::Point(void):
+Spot::Spot(void):
 	Light(),
 	cl(RGBColor()),
-	p(Point3D(0))
+	p(Point3D(0)),
+	d(Vector3D(0)),
+	arc(0)
 {}
 
 // Constructor
 
-Point::Point(Point3D pnt, RGBColor cIn):
+Spot::Spot(Point3D pnt, RGBColor cIn, Vector3D din, float arcin):
 		Light(),
 		cl(cIn),
-		p(pnt)
+		p(pnt),
+		d(din),
+		arc(arcin)
 {}
 
 // Copy constructor
 
-Point::Point(const Point& Point):
-		Light(Point),
-		p(Point.p),
-		cl(Point.cl)
+Spot::Spot(const Spot& Spot):
+		Light(Spot),
+		p(Spot.p),
+		cl(Spot.cl),
+		d(Spot.d),
+		arc(Spot.arc)
 {}
 
-Point&
-Point::operator= (const Point& rhs)
+Spot&
+Spot::operator= (const Spot& rhs)
 {
 	Light::operator= (rhs);
 	p = rhs.p;
@@ -43,13 +50,21 @@ Point::operator= (const Point& rhs)
 }
 
 RGBColor
-Point::get_intensity(ShadeRec& sr) const
+Spot::get_intensity(ShadeRec& sr) const
 {
-	Vector3D d = p - sr.hit_point;
-	float dist = d.length();
+	Vector3D dir = p - sr.hit_point;
+	float dist = dir.length();
 
-	d.normalize();
-	RGBColor result = cl * (sr.normal * d);
+	dir.normalize();
+
+	float theta = acos(-1*(dir.x*d.x+dir.y*d.y+dir.z*d.z));
+
+//	printf("TRH:%f\n",theta);
+
+	if (theta > arc)
+		return RGBColor(0);
+
+	RGBColor result = cl * (sr.normal * dir);
 
 	// If self occlusion return 0
 	if (cl.r < 0 || cl.g < 0 || cl.b < 0)
@@ -60,13 +75,13 @@ Point::get_intensity(ShadeRec& sr) const
 	Ray shadowRay;
 
 	shadowRay.o = sr.local_hit_point;
-	shadowRay.d = d;
+	shadowRay.d = dir;
 
 	ShadeRec s(sr.w.hit_objects(shadowRay));
 
 	if (s.hit_an_object)
 	{
-		if (s.local_hit_point * d < kEpsilon)
+		if (s.local_hit_point * dir < kEpsilon)
 			return result*(s.inv_opacity);
 	}
 
@@ -74,13 +89,13 @@ Point::get_intensity(ShadeRec& sr) const
 }
 
 void
-Point::set_intensity(RGBColor In)
+Spot::set_intensity(RGBColor In)
 {
 	cl = In;
 }
 
 float
-Point::get_rv(ShadeRec& sr)
+Spot::get_rv(ShadeRec& sr)
 {
 	Vector3D d = p - sr.hit_point;
 	d.normalize();
@@ -95,6 +110,6 @@ Point::get_rv(ShadeRec& sr)
 }
 
 void
-Point::set_loc(const Point3D& pnt) {
+Spot::set_loc(const Point3D& pnt) {
 	p = pnt;
 }

@@ -59,7 +59,7 @@ Plane::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	float d = ((p - ray.o) * n) / (ray.d * n);
 
 	// if less than 0 return as ray intersects behind camera
-	if (d < 0)
+	if (d < kEpsilon)
 		return false;
 
 	// if intersecting with the inverse side return false
@@ -68,8 +68,9 @@ Plane::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 
 	t = d;
 	s.normal = n;
+
 	s.local_hit_point = ray.o + d * ray.d;
-	s.normal_max   = -1*n;
+	s.normal_max   = -1*s.normal;
 	s.max_hit_point = s.local_hit_point;
 	s.material_ptr = material_ptr;
 	return true;

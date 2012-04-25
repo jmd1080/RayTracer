@@ -29,6 +29,8 @@
 
 #include "../Lights/Directional.h"
 #include "../Lights/Point.h"
+#include "../Lights/Spot.h"
+
 #include "../Tracers/RayCast.h"
 
 #include "../Material/Material.h"
@@ -163,6 +165,67 @@ Parser::ParseCSG (json_value *val, string mode)
 	return csg;
 }
 
+void
+Parser::ParsePointLight (json_value *val)
+{
+	RGBColor col = RGBColor();
+	Point3D pnt = Point3D();
+
+	json_value *v = val->first_child;
+	while (v != NULL)
+	{
+		string n = v->name;
+		if (n == "pnt_x")
+			pnt.x = v->float_value;
+		else if (n == "pnt_y")
+			pnt.y = v->float_value;
+		else if (n == "pnt_z")
+			pnt.z = v->float_value;
+		else if (n == "r")
+			col.r = v->float_value/255;
+		else if (n == "g")
+			col.g = v->float_value/255;
+		else if (n == "b")
+			col.b = v->float_value/255;
+
+		v = v->next_sibling;
+	}
+	Light *l = new Point(pnt,col);
+	l = new Spot(pnt,col, Vector3D(1,0,0),0.5);
+
+	w->add_light(l);
+}
+
+void
+Parser::ParseDirectionalLight (json_value *val)
+{
+	RGBColor col = RGBColor();
+	Vector3D dir = Vector3D();
+
+	json_value *v = val->first_child;
+	while (v != NULL)
+	{
+		string n = v->name;
+		if (n == "dir_x")
+			dir.x = v->float_value;
+		else if (n == "dir_y")
+			dir.y = v->float_value;
+		else if (n == "dir_z")
+			dir.z = v->float_value;
+		else if (n == "r")
+			col.r = v->float_value/255;
+		else if (n == "g")
+			col.g = v->float_value/255;
+		else if (n == "b")
+			col.b = v->float_value/255;
+
+		v = v->next_sibling;
+	}
+	Light *l = new Directional(dir,col);
+
+	w->add_light(l);
+}
+
 GeometricObject*
 Parser::getObject (json_value *val)
 {
@@ -234,6 +297,7 @@ Parser::ParseCamera(json_value *val)
 	Vector3D camDir = Vector3D();
 	Point3D camPos = Point3D();
 	float camRoll = 0;
+	float zoom = 1;
 
 	int sampleRate = 1;
 	int vres = 0;
@@ -263,6 +327,8 @@ Parser::ParseCamera(json_value *val)
 			vres = v->int_value;
 		else if (n == "hres")
 			hres = v->int_value;
+		else if (n == "zoom")
+			zoom = v->float_value;
 
 		v = v->next_sibling;
 	}
@@ -274,6 +340,7 @@ Parser::ParseCamera(json_value *val)
 	p->set_sample_rate(sampleRate);
 	p->set_hres(hres);
 	p->set_vres(vres);
+	p->set_zoom(zoom);
 }
 
 void
@@ -291,9 +358,23 @@ Parser::ParseData(json_value *val)
 		{
 			ParseCamera(v);
 		}
+		else if (!strcmp(v->name,"Directional-Light"))
+		{
+			ParseDirectionalLight(v);
+		}
+		else if (!strcmp(v->name,"Point-Light"))
+		{
+			ParsePointLight(v);
+		}
 		else
 		{
-			w->add_object(getObject(v));
+			GeometricObject* g = getObject(v);
+			if (g == NULL)
+			{
+				fprintf(stderr,"Error: Invalid object %s\n",v->name);
+				exit(0);
+			}
+			w->add_object(g);
 		}
 		v = v->next_sibling;
 	}

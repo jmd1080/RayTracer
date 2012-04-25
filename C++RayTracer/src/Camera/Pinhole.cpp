@@ -17,7 +17,8 @@ Pinhole::Pinhole(void)
 		rollAngle(0),
 		samples(1),
 		hres(0),
-		vres(0)
+		vres(0),
+		zoom(1)
 {}
 
 void
@@ -67,10 +68,10 @@ Pinhole::render_scene(const World *w)
 						Vector3D rayDir = viewDir * d;
 						RGBColor sample_col = RGBColor();
 						//Get position on view plane
-						rayDir+= (r + (float)(i)/samples - 0.5 - hres/2)*up;
+						rayDir+= (r + (float)(i)/samples - 0.5 - hres/2)*up*zoom;
 						//printf("%f\n",(float)(j)/SAMPLES);
 
-						rayDir+= (c + (float)(j)/samples - 0.5 - vres/2)*right;
+						rayDir+= (c + (float)(j)/samples - 0.5 - vres/2)*right*zoom;
 
 						rayDir.normalize();
 						//printf("%f,%f,%f\n",rayDir.x,rayDir.y,rayDir.z);
