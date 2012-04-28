@@ -55,6 +55,9 @@ class Parser {
 		ParseDirectionalLight(json_value *val);
 
 		void
+		ParseSpotLight(json_value *val);
+
+		void
 		ParseMaterial(json_value *val);
 
 		void

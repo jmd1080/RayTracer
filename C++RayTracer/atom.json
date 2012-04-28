@@ -10,7 +10,9 @@
 		"samples":1,
 		"roll":180.0,
 		"vres":400,
-		"hres":400
+		"hres":600,
+		"zoom":2.0,
+		"output":"atom.png"
 	},
 	"Material":
 	{
@@ -43,20 +45,14 @@
 		"kr":0.5,
 		"name":"mirror-orange"
 	},
-    	"Sphere":
-	{
-		"x":-100.0,
-		"y":0.0,
-		"z":0.0,
-		"rad":50.0,
-		"material":"purple"
-	},
+
+
 	"Sphere":
 	{
 		"x":200.0,
 		"y":0.0,
 		"z":0.0,
-		"rad":200.0,
+		"rad":150.0,
 		"material":"mirror-orange"
 	},
 
@@ -104,7 +100,7 @@
 				"x":200.0,
 				"y":0.0,
 				"z":0.0,
-				"material":"purple"
+				"material":"mirror-light"
 			},
 			"Sphere":
 			{
@@ -157,19 +153,8 @@
 			"material":"purple"
 		}
 	},
-	"Triangle":
-	{
-		"a_x":-100.0,
-		"a_y":100.0,
-		"a_z":0.0,
-		"b_x":-100.0,
-		"b_y":0.0,
-		"b_z":0.0,
-		"c_x":0.0,
-		"c_y":0.0,
-		"c_z":0.0
-	},
-	"Light":
+
+	"Directional-Light":
 	{
 		"r":127.0,
 		"g":127.0,

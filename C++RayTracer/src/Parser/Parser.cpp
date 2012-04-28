@@ -63,6 +63,13 @@ Parser::ParseSphere(json_value *val)
 	}
 	Sphere *s = new Sphere(Point3D(x,y,z),rad);
 	s->set_material_ptr(materials[material]);
+
+	if (materials[material] == NULL)
+	{
+		fprintf(stderr,"Error. Non-existant material '%s'\n",material.c_str());
+		exit(0);
+	}
+
 	return s;
 }
 
@@ -105,6 +112,13 @@ Parser::ParseTriangle(json_value *val)
 	Triangle *t = new Triangle(a,b,c);
 	t->set_material_ptr(materials[material]);
 
+	if (materials[material] == NULL)
+	{
+		fprintf(stderr,"Error. Non-existant material '%s'\n",material.c_str());
+		exit(0);
+	}
+
+
 	return t;
 }
 
@@ -138,6 +152,11 @@ Parser::ParsePlane (json_value *val)
 	}
 	Plane *p = new Plane(norm, pnt);
 	p->set_material_ptr(materials[material]);
+	if (materials[material] == NULL)
+	{
+		fprintf(stderr,"Error. Non-existant material '%s'\n",material.c_str());
+		exit(0);
+	}
 
 	return p;
 }
@@ -191,7 +210,46 @@ Parser::ParsePointLight (json_value *val)
 		v = v->next_sibling;
 	}
 	Light *l = new Point(pnt,col);
-	l = new Spot(pnt,col, Vector3D(1,0,0),0.5);
+
+	w->add_light(l);
+}
+
+void
+Parser::ParseSpotLight (json_value *val)
+{
+	RGBColor col = RGBColor();
+	Point3D pnt = Point3D();
+	Vector3D dir = Vector3D();
+	float arc = 0;
+
+	json_value *v = val->first_child;
+	while (v != NULL)
+	{
+		string n = v->name;
+		if (n == "pnt_x")
+			pnt.x = v->float_value;
+		else if (n == "pnt_y")
+			pnt.y = v->float_value;
+		else if (n == "pnt_z")
+			pnt.z = v->float_value;
+		else if (n == "r")
+			col.r = v->float_value/255;
+		else if (n == "g")
+			col.g = v->float_value/255;
+		else if (n == "b")
+			col.b = v->float_value/255;
+		else if (n == "arc")
+			arc = PI*v->float_value/180;
+		else if (n == "dir_x")
+			dir.x = v->float_value;
+		else if (n == "dir_y")
+			dir.y = v->float_value;
+		else if (n == "dir_z")
+			dir.z = v->float_value;
+
+		v = v->next_sibling;
+	}
+	Light *l = new Spot(pnt,col, dir,arc);
 
 	w->add_light(l);
 }
@@ -298,6 +356,7 @@ Parser::ParseCamera(json_value *val)
 	Point3D camPos = Point3D();
 	float camRoll = 0;
 	float zoom = 1;
+	string output = "none";
 
 	int sampleRate = 1;
 	int vres = 0;
@@ -329,6 +388,8 @@ Parser::ParseCamera(json_value *val)
 			hres = v->int_value;
 		else if (n == "zoom")
 			zoom = v->float_value;
+		else if (n == "output")
+			output = v->string_value;
 
 		v = v->next_sibling;
 	}
@@ -341,6 +402,7 @@ Parser::ParseCamera(json_value *val)
 	p->set_hres(hres);
 	p->set_vres(vres);
 	p->set_zoom(zoom);
+	p->set_output(output);
 }
 
 void
@@ -365,6 +427,10 @@ Parser::ParseData(json_value *val)
 		else if (!strcmp(v->name,"Point-Light"))
 		{
 			ParsePointLight(v);
+		}
+		else if (!strcmp(v->name,"Spot-Light"))
+		{
+			ParseSpotLight(v);
 		}
 		else
 		{

@@ -62,11 +62,14 @@ Material::shade(ShadeRec& sr)
 
 		RGBColor Il = kl*sr.w.lights[j]->get_intensity(sr);
 
-		// Specular
-		RGBColor Is =  Il*ks*pow(sr.w.lights[j]->get_rv(sr),27);
+		//printf("%f\n",Il.r);
 
+		// Negative light contributions are impossible
 		if (Il.r < 0 || Il.g < 0 || Il.b < 0)
 			Il = RGBColor(0);
+
+		// Specular
+		RGBColor Is =  Il*ks*pow(sr.w.lights[j]->get_rv(sr),27);
 
 		if (Is.r < 0 || Is.g < 0 || Is.b < 0)
 			Is = RGBColor(0);

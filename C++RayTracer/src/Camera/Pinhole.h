@@ -22,6 +22,9 @@ class Pinhole {
 		set_view_distance(const float dist);
 
 		void
+		set_output(const string out);
+
+		void
 		set_zoom(const float zoom);
 
 		void
@@ -45,6 +48,9 @@ class Pinhole {
 		void
 		set_hres(int h);
 
+		float
+		poisson();
+
 	private:
 
 		float		d;			// view plane distance
@@ -57,6 +63,8 @@ class Pinhole {
 		IplImage*	img;		//The output image of the camera
 		float		zoom;		//How zoomed in the camera is
 
+		string 		output;     //The file to be output
+
 		void
 		draw_pixel(RGBColor pixel_color, int c, int r) const;
 };
@@ -64,6 +72,11 @@ class Pinhole {
 inline void
 Pinhole::set_view_distance(float dist) {
 	d = dist;
+}
+
+inline void
+Pinhole::set_output(string out) {
+	output = out;
 }
 
 inline void

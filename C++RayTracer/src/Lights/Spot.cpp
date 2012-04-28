@@ -59,10 +59,9 @@ Spot::get_intensity(ShadeRec& sr) const
 
 	float theta = acos(-1*(dir.x*d.x+dir.y*d.y+dir.z*d.z));
 
-//	printf("TRH:%f\n",theta);
-
 	if (theta > arc)
 		return RGBColor(0);
+
 
 	RGBColor result = cl * (sr.normal * dir);
 

@@ -40,105 +40,7 @@ World::World(void)
    	ambient(RGBColor(0.1)),
    	vp()
 {
-
 	img = cvCreateImage(cvSize(vp.hres,vp.vres), 8, 3);
-
-	Material *m1 = new Material();
-	Material *m2 = new Material();
-	Material *m3 = new Material();
-	Material *m4 = new Material();
-	Material *m5 = new Material();
-
-	m5->set_color(RGBColor(0.5,0,0.5));
-	m5->set_kr(0.5);
-
-	m1->set_color(red);//1,0.01,0.01));
-	//m1->set_kr(0.1);
-	//m2->set_opacity(0);
-	m2->set_color(black);
-	m4->set_color(white);
-	m4->set_kr(0.5);
-	m2->set_kr(0.9);
-	m3->set_color(RGBColor(0.7,0.01,0.7));
-	m3->set_kr(0.3);
-	// background_color= RGBColor(1,1,0.01);
-
-	/*Light *l2 = new Directional(Vector3D(-1,1,1),RGBColor(0.5,0.5,0.5));
-	//add_light(l2);
-	Light *l3 = new Directional(Vector3D(-1,1,-1),RGBColor(0.5,0.5,0.5));
-	add_light(l3);
-
-	Light *l1 = new Point(Point3D(-200,0,0),RGBColor(0.5,0.5,0.5));
-
-	//add_light(l1);
-
-	/*Triangle *t4 = new Triangle(Point3D(0,100,-200),Point3D(0,0,-200),Point3D(100,0,-200));
-	t4->set_material_ptr(m1);
-
-	add_object(t4);
-
-	Sphere *s1 = new Sphere(Point3D(-50,-50,-100),50);
-	s1->set_material_ptr(m2);
-	Sphere *s2 = new Sphere(Point3D(50,50,-200),50);
-	s2->set_material_ptr(m1);
-	Sphere *s3 = new Sphere(Point3D(0,0,-300),50);
-	s3->set_material_ptr(m4);
-
-	Plane *p1 = new Plane(Normal(-1,0,0), Point3D(200,0,0));
-	p1->set_material_ptr(m2);
-
-	Triangle *t1 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-200),Point3D(0,0,-300));
-	t1->set_material_ptr(m3);
-
-	Triangle *t2 = new Triangle(Point3D(50,-50,-150),Point3D(50,80,-150),Point3D(0,0,-150));
-	t2->set_material_ptr(m3);
-
-	// CSG ************************
-
-	Sphere *CSG1 = new Sphere(Point3D(50,125,-500),50);
-	CSG1->set_material_ptr(m1);
-	Sphere *CSG2 = new Sphere(Point3D(50,75,-500),50);
-	CSG2->set_material_ptr(m3);
-	//add_object(CSG1);
-	//add_object(CSG2);
-	m1->set_kr(0);
-	CSG *C = new CSG(CSG1,CSG2,UNION);
-	add_object(C);
-
-	Sphere *CSG3 = new Sphere(Point3D(0,0,-100),50);
-	CSG3->set_material_ptr(m1);
-	Sphere *CSG4 = new Sphere(Point3D(0,0,-150),50);
-	CSG4->set_material_ptr(m3);
-
-	m3->set_kr(0.5);
-
-	CSG *C2 = new CSG(CSG3,CSG4,SUBTRACTION);
-	C2->set_material_ptr(m3);
-	add_object(C2);
-
-	Sphere *CSG5 = new Sphere(Point3D(50,-125,-500),50);
-	CSG1->set_material_ptr(m1);
-	Plane *CSG6 = new Plane(Normal(-1,-1,0), Point3D(50,-125,-500));
-	CSG2->set_material_ptr(m3);
-	//add_object(CSG1);
-	//add_object(CSG2);
-	m1->set_kr(0);
-	CSG *C3 = new CSG(CSG5,CSG6,INTERSECTION);
-	add_object(C3);
-
-	//add_object(CSG3);
-	//add_object(CSG4);
-
-	// ****************************
-
-/*
-	add_object(s3);
-	add_object(s2);
-	add_object(s1);
-
-	add_object(t1);
-
-	add_object(p1);*/
 }
 
 
@@ -169,7 +71,7 @@ World::hit_objects(const Ray& ray) {
 	for (int j = 0; j < num_objects; j++)
 		if (objects[j]->hit(ray, t, tmax, sr)) {
 			sr.inv_opacity *= (1-sr.material_ptr->get_opacity());
-			if (t < tmin) {
+			if (t < tmin && t>kEpsilon) {
 				sr.hit_an_object	= true;
 				tmin 				= t;
 				m = sr.material_ptr;

@@ -10,6 +10,7 @@
 #include "../Utilities/Constants.h"
 #include "Triangle.h"
 #include <stdio.h>
+#include "../Material/Material.h"
 
 Triangle::Triangle(void):
 	GeometricObject(),
@@ -42,7 +43,7 @@ void Triangle::update_normal()
 {
 	n = Normal((b - a) ^ (c - a));
 	n.normalize();
-	printf("NORM:%f,%f,%f\n",n.x, n.y, n.z);
+	printf("%f,%f,%f\n",n.x,n.y,n.z);
 }
 
 Triangle&
@@ -65,6 +66,7 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 {
 	// Find intersection, source p.362 Ray Tracing from the ground up
 	// TODO remove repeated calculations
+	s.material_ptr = material_ptr;
 
 	float a1 = a.x - b.x, b1 = a.x - c.x, c1 = ray.d.x, d1 = a.x - ray.o.x,
 		  e1 = a.y - b.y, f1 = a.y - c.y, g1 = ray.d.y, h1 = a.y - ray.o.y,
@@ -74,12 +76,12 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 
 	float beta = (d1 *(f1*k1 - g1*j1) + b1*(g1*l1 - h1*k1) + c1*(h1*j1 - f1*l1)) * div;
 
-	if (beta < kEpsilon)
+	if (beta < -kEpsilon)
 		return false;
 
 	float gamma = (a1*(h1*k1 - g1*l1) + d1*(g1*i1 - e1*k1) + c1*(e1*l1 - h1*i1)) * div;
 
-	if (gamma < kEpsilon)
+	if (gamma < -kEpsilon)
 		return false;
 
 	if (beta + gamma > 1 + kEpsilon)
@@ -87,16 +89,15 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 
 	float d = (a1*(f1*l1 - h1*j1) + b1*(h1*i1 - e1*l1) + d1*(e1*j1 - f1*i1)) * div;
 
-	//if (d < -kEpsilon)
-		//return false;
+	if (d < kEpsilon)
+		return false;
 
 	t = d;
 	s.normal = n;
 	s.local_hit_point = ray.o + t * ray.d;
+	s.hit_point = s.local_hit_point;
 	s.normal_max   = -1*n;
 	s.max_hit_point = s.local_hit_point;
-	s.material_ptr = material_ptr;
-
 
 	return true;
 }

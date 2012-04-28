@@ -18,7 +18,8 @@ Pinhole::Pinhole(void)
 		samples(1),
 		hres(0),
 		vres(0),
-		zoom(1)
+		zoom(1),
+		output("none")
 {}
 
 void
@@ -35,6 +36,14 @@ Pinhole::draw_pixel(RGBColor pixel_color, int c, int r) const
 
 	cvSet2D(img,c,r,s);
 
+}
+
+unsigned int factorial(unsigned int n)
+{
+	unsigned int retval = 1;
+	for (int i = n; i > 1; --i)
+		retval *= i;
+	return retval;
 }
 
 void
@@ -91,6 +100,7 @@ Pinhole::render_scene(const World *w)
 		}
 
 		cvShowImage("Image",img);
-		cvSaveImage("out.jpg",img,0);
+		if (!(output == "none"))
+				cvSaveImage(output.c_str(),img,0);
 		cvWaitKey(0);
 }

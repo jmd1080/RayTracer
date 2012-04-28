@@ -7,11 +7,12 @@
 		"pos_x":100.0,
 		"pos_y":0.0,
 		"pos_z":-1900.0,
-		"samples":1,
+		"samples":4,
 		"roll":180.0,
-		"vres":400,
-		"hres":400,
-		"zoom":1.0
+		"vres":800,
+		"hres":1280,
+		"zoom":3.0,
+		"output":"arc.png"
 	},
 	"Material":
 	{
@@ -152,7 +153,7 @@
 			"material":"mirror-orange"
 		}
 	},
-	"Light":
+	"Directional-Light":
 	{
 		"r":127.0,
 		"g":127.0,

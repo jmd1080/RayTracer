@@ -52,7 +52,7 @@ Directional::get_intensity(ShadeRec& sr) const
 
 	// If self occlusion return 0
 	if (cl.r < 0 || cl.g < 0 || cl.b < 0)
-		result = RGBColor(0);
+		result = RGBColor(0.0);
 
 	// Check for shadows
 
@@ -64,7 +64,7 @@ Directional::get_intensity(ShadeRec& sr) const
 	ShadeRec s(sr.w.hit_objects(shadowRay));
 
 	if (s.hit_an_object)
-		return result*(s.inv_opacity);
+		return RGBColor(0.0);
 
 	return result;
 }

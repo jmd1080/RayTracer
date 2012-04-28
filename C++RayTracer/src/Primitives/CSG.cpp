@@ -88,10 +88,14 @@ CSG::union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 	// cope with non-hits
 	if (!ahit)
 	{
+		//printf("!ahit\n");
+
 		amin = bmin + 1;
 	}
 	if (!bhit)
 	{
+		//printf("!bhit\n");
+
 		bmin = amin + 1;
 	}
 
@@ -128,6 +132,7 @@ CSG::union_hit(const Ray& ray, double& tmin, double& tmax, ShadeRec& sr) const
 			sr.max_hit_point = srB.max_hit_point;
 			sr.normal_max = srB.normal_max;
 		}
+
 		return true;
 	}
 	else
