@@ -43,7 +43,6 @@ void Triangle::update_normal()
 {
 	n = Normal((b - a) ^ (c - a));
 	n.normalize();
-	printf("%f,%f,%f\n",n.x,n.y,n.z);
 }
 
 Triangle&

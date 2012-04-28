@@ -88,7 +88,6 @@ World::hit_objects(const Ray& ray) {
 		sr.normal = normal;
 		sr.local_hit_point = local_hit_point;
 	}
-	//printf("%d",sr.material);
 	return(sr);
 }
 
