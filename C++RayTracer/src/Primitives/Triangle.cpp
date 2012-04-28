@@ -68,6 +68,13 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	// TODO remove repeated calculations
 	s.material_ptr = material_ptr;
 
+	// find intersection point using formula from http://en.wikipedia.org/wiki/Line-plane_intersection
+	float dist = ((a - ray.o) * n) / (ray.d * n);
+
+	// if less than 0 return as ray intersects behind camera
+	if (dist < kEpsilon)
+		return false;
+
 	float a1 = a.x - b.x, b1 = a.x - c.x, c1 = ray.d.x, d1 = a.x - ray.o.x,
 		  e1 = a.y - b.y, f1 = a.y - c.y, g1 = ray.d.y, h1 = a.y - ray.o.y,
 		  i1 = a.z - b.z, j1 = a.z - c.z, k1 = ray.d.z, l1 = a.z - ray.o.z;
@@ -87,12 +94,7 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	if (beta + gamma > 1 + kEpsilon)
 		return false;
 
-	float d = (a1*(f1*l1 - h1*j1) + b1*(h1*i1 - e1*l1) + d1*(e1*j1 - f1*i1)) * div;
-
-	if (d < kEpsilon)
-		return false;
-
-	t = d;
+	t = dist;
 	s.normal = n;
 	s.local_hit_point = ray.o + t * ray.d;
 	s.hit_point = s.local_hit_point;

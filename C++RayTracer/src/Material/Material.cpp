@@ -101,6 +101,7 @@ Material::shade(ShadeRec& sr)
 
 		reflectRay.d = sr.ray.d - (2 * (sr.normal * sr.ray.d) * sr.normal);
 		RGBColor reflect = sr.w.tracer_ptr->trace_ray(reflectRay,sr.depth+1);
+
 		result += kr*reflect;
 	}
 

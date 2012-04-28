@@ -55,6 +55,7 @@ Plane::clone(void) const {
 bool
 Plane::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 {
+	s.material_ptr = material_ptr;
 	// find intersection point using formula from http://en.wikipedia.org/wiki/Line-plane_intersection
 	float d = ((p - ray.o) * n) / (ray.d * n);
 
@@ -72,6 +73,5 @@ Plane::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	s.local_hit_point = ray.o + d * ray.d;
 	s.normal_max   = -1*s.normal;
 	s.max_hit_point = s.local_hit_point;
-	s.material_ptr = material_ptr;
 	return true;
 }
