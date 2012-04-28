@@ -71,7 +71,7 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	float dist = ((a - ray.o) * n) / (ray.d * n);
 
 	// if less than 0 return as ray intersects behind camera
-	if (dist < kEpsilon)
+	if (dist < 2*kEpsilon)
 		return false;
 
 	float a1 = a.x - b.x, b1 = a.x - c.x, c1 = ray.d.x, d1 = a.x - ray.o.x,
@@ -90,7 +90,7 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	if (gamma < -kEpsilon)
 		return false;
 
-	if (beta + gamma > 1 + kEpsilon)
+	if (beta + gamma > 1 + 2* kEpsilon)
 		return false;
 
 	t = dist;
@@ -99,6 +99,14 @@ Triangle::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	s.hit_point = s.local_hit_point;
 	s.normal_max   = -1*n;
 	s.max_hit_point = s.local_hit_point;
+
+	// if intersecting with the inverse side
+	if(ray.d*n > kEpsilon)
+	{
+		s.normal = -1*n;
+		s.normal_max   = n;
+	}
+
 
 	return true;
 }
