@@ -22,7 +22,6 @@
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Normal.h"
 #include "../Utilities/ShadeRec.h"
-#include "../Utilities/Maths.h"
 #include "../Utilities/RGBColor.h"
 
 // lights
@@ -284,6 +283,28 @@ Parser::ParseDirectionalLight (json_value *val)
 	w->add_light(l);
 }
 
+void
+Parser::ParseAmbientLight (json_value *val)
+{
+	RGBColor amb = RGBColor(0.1);
+
+	json_value *v = val->first_child;
+	while (v != NULL)
+	{
+		string n = v->name;
+		if (n == "r")
+			amb.r = v->float_value/255;
+		else if (n == "g")
+			amb.g = v->float_value/255;
+		else if (n == "b")
+			amb.b = v->float_value/255;
+
+		v = v->next_sibling;
+	}
+
+	w->set_ambient_light(amb);
+}
+
 GeometricObject*
 Parser::getObject (json_value *val)
 {
@@ -356,11 +377,12 @@ Parser::ParseCamera(json_value *val)
 	Point3D camPos = Point3D();
 	float camRoll = 0;
 	float zoom = 1;
-	string output = "none";
+	string output = "out.png";
 
 	int sampleRate = 1;
 	int vres = 0;
 	int hres = 0;
+	float view_dist = 500;
 
 	json_value *v = val->first_child;
 	while (v != NULL)
@@ -390,6 +412,8 @@ Parser::ParseCamera(json_value *val)
 			zoom = v->float_value;
 		else if (n == "output")
 			output = v->string_value;
+		else if (n == "view_dist")
+			view_dist = v->float_value;
 
 		v = v->next_sibling;
 	}
@@ -403,6 +427,8 @@ Parser::ParseCamera(json_value *val)
 	p->set_vres(vres);
 	p->set_zoom(zoom);
 	p->set_output(output);
+	p->set_view_distance(view_dist);
+
 }
 
 void
@@ -431,6 +457,10 @@ Parser::ParseData(json_value *val)
 		else if (!strcmp(v->name,"Spot-Light"))
 		{
 			ParseSpotLight(v);
+		}
+		else if (!strcmp(v->name,"Ambient-Light"))
+		{
+			ParseAmbientLight(v);
 		}
 		else
 		{

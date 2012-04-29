@@ -16,7 +16,6 @@
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Normal.h"
 #include "../Utilities/ShadeRec.h"
-#include "../Utilities/Maths.h"
 #include "../Utilities/RGBColor.h"
 
 // lights

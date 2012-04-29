@@ -22,7 +22,7 @@ Directional::Directional(void):
 Directional::Directional(Vector3D dir, RGBColor cIn):
 		Light(),
 		cl(cIn),
-		d(dir)
+		d(-1*dir)
 {}
 
 // Copy constructor
@@ -90,6 +90,6 @@ Directional::get_rv(ShadeRec& sr)
 
 void
 Directional::set_dir(const Vector3D& dir) {
-	d = dir;
+	d = -1*dir;
 	d.normalize();
 }

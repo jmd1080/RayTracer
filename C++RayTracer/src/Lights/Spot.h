@@ -20,7 +20,8 @@ class Spot: public Light {
 
 		Spot(void);   								// Default constructor
 
-		Spot(Point3D pnt, RGBColor In, Vector3D din, float arcin);				// Constructor
+		Spot(Point3D pnt, RGBColor In, Vector3D din, float arcin);
+		// Constructor, takes location as Point3D, intensity as an RGBColor, direction as a Vector3D and arc as a float in radians
 
 		Spot(const Spot& Spot); 		// Copy constructor
 

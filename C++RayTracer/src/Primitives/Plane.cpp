@@ -59,7 +59,7 @@ Plane::hit(const Ray& ray, double& t, double& tmax, ShadeRec& s) const
 	// find intersection point using formula from http://en.wikipedia.org/wiki/Line-plane_intersection
 	float d = ((p - ray.o) * n) / (ray.d * n);
 
-	if (d < 4*kEpsilon)
+	if (d < 8*kEpsilon)
 		return false;
 
 	t = d;

@@ -20,9 +20,9 @@ class Point: public Light {
 
 		Point(void);   								// Default constructor
 
-		Point(Point3D pnt, RGBColor In);				// Constructor
+		Point(Point3D pnt, RGBColor In);			// Constructor, takes light location as a Point3D, intensity as an RGBColor
 
-		Point(const Point& Point); 		// Copy constructor
+		Point(const Point& Point); 					// Copy constructor
 
 		Point& 										// assignment operator
 		operator= (const Point& rhs);

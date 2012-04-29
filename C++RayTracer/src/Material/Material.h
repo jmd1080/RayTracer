@@ -34,6 +34,7 @@ class Material {
 	    void
 	    set_color(RGBColor color);
 
+	    // Partially implemented opactity functionality, not completed
 	    void
 	    set_opacity(float op);
 

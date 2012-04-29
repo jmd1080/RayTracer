@@ -16,40 +16,50 @@
 class Pinhole {
 	public:
 
+
+		// Constructor
 		Pinhole();
 
+		// Set the view distance to the plane
 		void
 		set_view_distance(const float dist);
 
+		// Set the filename to output to
 		void
 		set_output(const string out);
 
+		// Set the view
 		void
 		set_zoom(const float zoom);
 
+		// Takes a 3D point and moves the camera there
 		void
 		set_camera_position(const Point3D pos);
 
+		// Sets the rotation of the camera in radians
 		void
 		set_camera_roll(const float angle);
 
+		// Sets the direction the camera is pointing in. Can take non-normalized vectors
 		void
 		set_camera_dir(const Vector3D dir);
 
+		// Takes a world pointer and outputs the image according to the camera settings
 		void
 		render_scene(const World *w);
 
+		// Sets the sample rate per pixel. Number of samples will be equal to s^2 to ensure it is always a square number
 		void
 		set_sample_rate(int s);
 
+		// Sets the vertical resolution of the output image in pixels
 		void
 		set_vres(int v);
 
+		// Sets the horizontal resolution of the output image in pixels
 		void
 		set_hres(int h);
 
-		float
-		poisson();
 
 	private:
 
@@ -57,9 +67,9 @@ class Pinhole {
 		Point3D		camPos;		// the position of the pin-hole camera
 		Vector3D	viewDir;	// the direction the camera is pointing
 		float		rollAngle;	// the angle the camera is rotated at;
-		float		samples;	// square root of number of samples per pixel (ensuring samples is always a whole number)
-		int			vres;
-		int			hres;
+		float		samples;	// square root of number of samples per pixel (ensuring samples is always a square number)
+		int			vres;		// the vertical resolution of the output image
+		int			hres;		// the horizontal resolution of the output image
 		IplImage*	img;		//The output image of the camera
 		float		zoom;		//How zoomed in the camera is
 

@@ -40,7 +40,7 @@ class World {
 		add_light(Light* light_ptr);
 
 		void
-		set_ambient_light(int light);
+		set_ambient_light(RGBColor light);
 
 		void
 		build(void);
@@ -89,7 +89,7 @@ World::add_light(Light* light_ptr) {
 // ------------------------------------------------------------------ set_ambient_light
 
 inline void
-World::set_ambient_light(int light) {
+World::set_ambient_light(RGBColor light) {
 	ambient = light;
 }
 

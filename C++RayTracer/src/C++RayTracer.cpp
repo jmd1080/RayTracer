@@ -29,9 +29,17 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	cout << "Ray Tracer" << endl;
 
+	string filename = "hello.json";
+
+	if (argc == 2)
+		filename = argv[1];
+
+	cout << "Rendering: " << filename << endl;
+
+
 	string line;
 	string in;
-	ifstream myfile ("hello.json");
+	ifstream myfile (filename.c_str());
 
 	if (myfile.is_open())
 	{

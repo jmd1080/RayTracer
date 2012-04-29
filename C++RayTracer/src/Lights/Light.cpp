@@ -12,9 +12,6 @@
 Light::Light(void)
 {}
 
-Light::Light(float in)
-{}
-
 
 
 // ---------------------------------------------------------------------- copy constructor

@@ -3,12 +3,11 @@
 
 #include "../Utilities/ShadeRec.h"
 
+
 class Light {
 	public:
 
 		Light(void);
-
-		Light(float in);
 
 		Light(const Light& light);
 

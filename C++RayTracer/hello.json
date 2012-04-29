@@ -6,13 +6,13 @@
 		"dir_z":1.0,
 		"pos_x":100.0,
 		"pos_y":0.0,
-		"pos_z":-1900.0,
+		"pos_z":-700.0,
 		"samples":1,
-		"roll":0.0,
+		"roll":180.0,
 		"vres":400,
 		"hres":400,
-		"zoom":1.0,
-		"output":"reflection.png"
+		"zoom":1.5,
+		"output":"gh.png"
 	},
 	"Material":
 	{
@@ -20,27 +20,6 @@
 		"g":0.0,
 		"b":255.0,
 		"name":"purple"
-	},
-	"Material":
-	{
-		"r":255.0,
-		"g":255.0,
-		"b":255.0,
-		"name":"white"
-	},
-	"Material":
-	{
-		"r":128.0,
-		"g":0.0,
-		"b":0.0,
-		"name":"maroon"
-	},
-	"Material":
-	{
-		"r":238.0,
-		"g":203.0,
-		"b":173.0,
-		"name":"peach"
 	},
 	"Material":
 	{
@@ -71,7 +50,7 @@
 		"r":255.0,
 		"g":127.0,
 		"b":0.0,
-		"kr":0.3,
+		"kr":0.5,
 		"name":"mirror-orange"
 	},
 	"Material":
@@ -79,7 +58,7 @@
 		"r":125.0,
 		"g":1.0,
 		"b":1.0,
-		"kr":0.3,
+		"kr":0.5,
 		"name":"mirror-red"
 	},
 	"Material":
@@ -87,146 +66,61 @@
 		"r":1.0,
 		"g":125.0,
 		"b":1.0,
-		"kr":0.3,
+		"kr":0.5,
 		"name":"mirror-green"
 	},
-
     	"Sphere":
 	{
-		"x":-300.0,
+		"x":200.0,
 		"y":0.0,
-		"z":400.0,
+		"z":0.0,
 		"rad":100.0,
 		"material":"mirror-green"
 	},
-    	"Sphere":
+   	"Sphere":
 	{
-		"x":-320.0,
-		"y":50.0,
+		"x":240.0,
+		"y":350.0,
+		"z":0.0,
+		"rad":60.0,
+		"material":"mirror-orange"
+	},
+   	"Sphere":
+	{
+		"x":220.0,
+		"y":190.0,
 		"z":0.0,
 		"rad":80.0,
 		"material":"mirror-red"
 	},
-
-    	"Sphere":
-	{
-		"x":-280.0,
-		"y":25.0,
-		"z":700.0,
-		"rad":120.0,
-		"material":"mirror-orange"
-	},
-	"Intersection":
-	{
-	   	"Sphere":
-		{
-			"x":200.0,
-			"y":0.0,
-			"z":400.0,
-			"rad":400.0,
-			"material":"mirror-orange"
-		},
-
-		"Plane":
-		{
-			"normx":-1.0,
-			"normy":-0.0,
-			"normz":-1.0,
-			"x":200.0,
-			"y":0.0,
-			"z":400.0,
-			"material":"mirror-dark"
-		},
-	},
-
-	"Triangle":
-	{
-		"b_x":-400.0,
-		"b_y":-200.0,
-		"b_z":400.0,
-		"a_x":-400.0,
-		"a_y":-1000.0,
-		"a_z":30.0,
-		"c_x":400.0,
-		"c_y":-1000.0,
-		"c_z":30.0,
-		"material":"mirror-blue"
-	},
-
-	"Triangle":
-	{
-		"b_x":-400.0,
-		"b_y":200.0,
-		"b_z":400.0,
-		"a_x":-400.0,
-		"a_y":1000.0,
-		"a_z":30.0,
-		"c_x":400.0,
-		"c_y":1000.0,
-		"c_z":30.0,
-		"material":"mirror-red"
-	},
-
-
- 	"Sphere":
-	{
-		"x":-300.0,
-		"y":-500.0,
-		"z":-200.0,
-		"rad":100.0,
-		"material":"mirror-blue"
-	},
-
 	"Plane":
 	{
-		"normx":1.0,
+		"normx":-1.0,
 		"normy":-0.0,
 		"normz":0.0,
-		"x":-400.0,
+		"x":300.0,
 		"y":0.0,
 		"z":0.0,
-		"material":"white"
+		"material":"mirror-blue"
 	},
-
-	"Plane":
+	"Spot-Light":
 	{
-		"normx":0.0,
-		"normy":-0.0,
-		"normz":-1.0,
-		"x":0.0,
-		"y":0.0,
-		"z":3000.0,
-		"material":"maroon"
-	},
-	"Plane":
-	{
-		"normx":0.0,
-		"normy":1.0,
-		"normz":0.0,
-		"x":-0.0,
-		"y":-1000.0,
-		"z":0.0,
-		"material":"purple"
-	},
-
-	"Plane":
-	{
-		"normx":0.0,
-		"normy":-1.0,
-		"normz":0.0,
-		"x":-0.0,
-		"y":1000.0,
-		"z":0.0,
-		"material":"peach"
-	},
-	"Point-Light":
-	{
-		"r":200.0,
-		"g":200.0,
-		"b":200.0,
-		"pnt_x":300.0,
+		"r":127.0,
+		"g":127.0,
+		"b":127.0,
+		"pnt_x":-700.0,
 		"pnt_y":0.0,
-		"pnt_z":-300.0,
+		"pnt_z":0.0,
+		"dir_x":1.0,
+		"dir_y":0.0,
+		"dir_z":0.0,
+		"arc":20.0
+	},
+	"Ambient-Light":
+	{
+		"r":127.0,
+		"g":127.0,
+		"b":127.0,
 	}
 }
 
